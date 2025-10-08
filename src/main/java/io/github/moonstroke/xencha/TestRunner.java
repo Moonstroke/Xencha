@@ -3,7 +3,9 @@
 package io.github.moonstroke.xencha;
 
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -28,6 +30,14 @@ public class TestRunner {
 	 * @throws FileNotFoundException if one of the given paths does not refer to an existing file
 	 */
 	public static TestRunner forPaths(String... rawPaths) throws FileNotFoundException {
-		throw new UnsupportedOperationException("Not implemented"); // TODO
+		Collection<Path> paths = new ArrayList<Path>(rawPaths.length);
+		for (String rawPath : rawPaths) {
+			Path path = Path.of(rawPath);
+			if (!Files.isRegularFile(path)) {
+				throw new FileNotFoundException(rawPath);
+			}
+			paths.add(path);
+		}
+		return new TestRunner(paths);
 	}
 }
