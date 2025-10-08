@@ -2,6 +2,8 @@
  * SPDX-License-Identifier: MIT */
 package io.github.moonstroke.xencha;
 
+import java.io.FileNotFoundException;
+
 /**
  * This class handles the execution of tests described in XML files whose paths it is given.
  */
@@ -13,8 +15,10 @@ public class TestRunner {
 	 * @param rawPaths The paths to XML test suites
 	 *
 	 * @return A test runner configured with the specified paths
+	 *
+	 * @throws FileNotFoundException if one of the given paths does not refer to an existing file
 	 */
-	public static TestRunner forPaths(String... rawPaths) {
+	public static TestRunner forPaths(String... rawPaths) throws FileNotFoundException {
 		throw new UnsupportedOperationException("Not implemented"); // TODO
 	}
 }
