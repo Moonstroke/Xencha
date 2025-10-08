@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: 2025 (c) Joachim MARIE <moonstroke+github@live.fr>
+     SPDX-License-Identifier: MIT -->
+<test xmlns="http://moonstroke.github.io/xencha" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://moonstroke.github.io/xencha ../../main/resources/test.xsd">
+	<source>
+		<inline>
+			<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+				<!-- TODO -->
+			</xsl:stylesheet>
+		</inline>
+	</source>
+	<cases>
+		<case>
+			<input>
+				<path>/input/path/for/first/case</path>
+			</input>
+			<expectedOutput>
+				<path>/expected/output/path/for/first/case</path>
+			</expectedOutput>
+		</case>
+		<case>
+			<input>
+				<inline>
+					<!-- TODO -->
+				</inline>
+			</input>
+			<expectedOutput>
+				<inline>
+					<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+						<!-- TODO -->
+					</fo:root>
+				</inline>
+			</expectedOutput>
+		</case>
+	</cases>
+</test>
