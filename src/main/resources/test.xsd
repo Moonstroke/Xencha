@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: 2025 (c) Joachim MARIE <moonstroke+github@live.fr>
+     SPDX-License-Identifier: MIT -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://moonstroke.github.io/xencha" xmlns:xencha="http://moonstroke.github.io/xencha" elementFormDefault="qualified">
+	<element name="test" type="xencha:TestSuite"/>
+	<complexType name="TestSuite">
+		<all>
+			<element name="source" type="xencha:Source"/>
+			<element name="cases">
+				<complexType>
+					<sequence>
+						<element name="case" type="xencha:Case" maxOccurs="unbounded"/>
+					</sequence>
+				</complexType>
+			</element>
+		</all>
+	</complexType>
+	<complexType name="Source">
+		<choice>
+			<element name="path" type="string"/>
+			<element name="inline" type="xencha:InlineSource"/>
+		</choice>
+	</complexType>
+	<complexType name="InlineSource" mixed="true">
+		<sequence minOccurs="0">
+			<any processContents="skip"/>
+		</sequence>
+	</complexType>
+	<complexType name="Case">
+		<all>
+			<element name="input" type="xencha:Source"/>
+			<element name="expectedOutput" type="xencha:Source"/>
+		</all>
+	</complexType>
+</schema>
