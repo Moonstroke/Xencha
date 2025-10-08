@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: 2025 (c) Joachim MARIE <moonstroke+github@live.fr>
+     SPDX-License-Identifier: MIT -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.moonstroke</groupId>
@@ -8,6 +10,22 @@
 	<name>Xencha</name>
 	<description>Test automation framework for XSLT</description>
 	<inceptionYear>2025</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>The MIT License</name>
+			<url>https://opensource.org/license/mit</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Joachim MARIE</name>
+			<url>https://github.com/Moonstroke</url>
+			<email>moonstroke+github@live.fr</email>
+		</developer>
+	</developers>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
