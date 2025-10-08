@@ -52,7 +52,6 @@
 						</goals>
 						<phase>generate-sources</phase>
 						<configuration>
-							<sources>src/main/resources</sources>
 							<packageName>${project.groupId}.${project.artifactId}.model</packageName>
 							<noGeneratedHeaderComments>true</noGeneratedHeaderComments>
 						</configuration>
