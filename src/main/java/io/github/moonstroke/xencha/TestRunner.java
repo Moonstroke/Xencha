@@ -6,4 +6,15 @@ package io.github.moonstroke.xencha;
  * This class handles the execution of tests described in XML files whose paths it is given.
  */
 public class TestRunner {
+
+	/**
+	 * Construct a test runner for the specified paths.
+	 *
+	 * @param rawPaths The paths to XML test suites
+	 *
+	 * @return A test runner configured with the specified paths
+	 */
+	public static TestRunner forPaths(String... rawPaths) {
+		throw new UnsupportedOperationException("Not implemented"); // TODO
+	}
 }
