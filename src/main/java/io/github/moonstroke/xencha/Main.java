@@ -13,6 +13,12 @@ public class Main {
 	 * @param args A list of XML test descriptors
 	 */
 	public static void main(String[] args) {
-		// TODO
+		try {
+			TestRunner testRunner = TestRunner.forPaths(args);
+			// TODO
+		} catch (Exception e) {
+			System.err.println(e);
+			System.exit(1);
+		}
 	}
 }
