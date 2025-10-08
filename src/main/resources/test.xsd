@@ -2,8 +2,15 @@
 <!-- SPDX-FileCopyrightText: 2025 (c) Joachim MARIE <moonstroke+github@live.fr>
      SPDX-License-Identifier: MIT -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://moonstroke.github.io/xencha" xmlns:xencha="http://moonstroke.github.io/xencha" elementFormDefault="qualified">
-	<element name="test" type="xencha:TestSuite"/>
+	<element name="test" type="xencha:TestSuite">
+		<annotation>
+			<documentation>The test suite being defined.</documentation>
+		</annotation>
+	</element>
 	<complexType name="TestSuite">
+		<annotation>
+			<documentation>The definition model of a test suite.</documentation>
+		</annotation>
 		<all>
 			<element name="source" type="xencha:Source"/>
 			<element name="cases">
@@ -16,6 +23,9 @@
 		</all>
 	</complexType>
 	<complexType name="Source">
+		<annotation>
+			<documentation>A data component of tests.</documentation>
+		</annotation>
 		<choice>
 			<element name="path" type="string"/>
 			<element name="inline" type="xencha:InlineSource"/>
@@ -27,6 +37,9 @@
 		</sequence>
 	</complexType>
 	<complexType name="Case">
+		<annotation>
+			<documentation>The definition of an elementary execution of the test.</documentation>
+		</annotation>
 		<all>
 			<element name="input" type="xencha:Source"/>
 			<element name="expectedOutput" type="xencha:Source"/>
