@@ -3,11 +3,20 @@
 package io.github.moonstroke.xencha;
 
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.util.Collection;
 
 /**
  * This class handles the execution of tests described in XML files whose paths it is given.
  */
 public class TestRunner {
+
+	private final Collection<Path> paths;
+
+
+	private TestRunner(Collection<Path> paths) {
+		this.paths = paths;
+	}
 
 	/**
 	 * Construct a test runner for the specified paths.
