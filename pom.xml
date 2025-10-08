@@ -8,4 +8,8 @@
 	<name>Xencha</name>
 	<description>Test automation framework for XSLT</description>
 	<inceptionYear>2025</inceptionYear>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 </project>
