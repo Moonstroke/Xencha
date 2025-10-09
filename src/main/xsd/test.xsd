@@ -12,6 +12,7 @@
 			<documentation>The definition model of a test suite.</documentation>
 		</annotation>
 		<all>
+			<element name="name" type="string"/>
 			<element name="source" type="xencha:Source"/>
 			<element name="cases">
 				<complexType>
