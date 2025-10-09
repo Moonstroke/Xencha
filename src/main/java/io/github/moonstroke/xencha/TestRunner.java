@@ -7,6 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 
 /**
  * This class handles the execution of tests described in XML files whose paths it is given.
@@ -47,6 +50,13 @@ public class TestRunner {
 	 * @return The results of the execution of the tests
 	 */
 	public Collection<TestSuiteResult> runTests() {
+		Unmarshaller testSuiteUnmarshaller;
+		try {
+			JAXBContext context = JAXBContext.newInstance(TestSuite.class);
+			testSuiteUnmarshaller = context.createUnmarshaller();
+		} catch (JAXBException e) {
+			throw new IllegalStateException(e);
+		}
 		throw new UnsupportedOperationException("Not implemented"); // TODO
 	}
 }
