@@ -2,11 +2,13 @@
 <!-- SPDX-FileCopyrightText: 2025 (c) Joachim MARIE <moonstroke+github@live.fr>
      SPDX-License-Identifier: MIT -->
 <test xmlns="http://moonstroke.github.io/xencha" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://moonstroke.github.io/xencha ../../main/xsd/test.xsd">
+	<name>Tests for external source</name>
 	<source>
 		<path>/source/path/for/path/test</path>
 	</source>
 	<cases>
 		<case>
+			<name>Test for external source with external input/output</name>
 			<input>
 				<path>/input/path/for/first/case</path>
 			</input>
@@ -15,6 +17,7 @@
 			</expectedOutput>
 		</case>
 		<case>
+			<name>Test for external source with embedded input/output</name>
 			<input>
 				<inline>
 					<!-- TODO -->
