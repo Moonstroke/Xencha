@@ -63,8 +63,11 @@ public class TestSuiteResult {
 	 */
 	public void addTestResult(TestResult testResult) {
 		testResults.add(testResult);
-		if (testResult.getStatus() != TestStatus.SUCCESS && globalStatus == TestStatus.SUCCESS) {
-			globalStatus = testResult.getStatus();
+		/* FAILURE overrides SUCCESS, and ERROR overrides FAILURE */
+		TestStatus testResultStatus = testResult.getStatus();
+		if (testResultStatus == TestStatus.FAILURE && globalStatus == TestStatus.SUCCESS
+		    || testResultStatus == TestStatus.ERROR && globalStatus != TestStatus.ERROR) {
+			globalStatus = testResultStatus;
 		}
 	}
 
