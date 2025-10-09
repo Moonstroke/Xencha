@@ -23,6 +23,7 @@ public class TestSuiteResult {
 	 */
 	public TestSuiteResult(String name) {
 		this.name = Objects.requireNonNull(name);
+		this.globalStatus = TestStatus.SUCCESS;
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class TestSuiteResult {
 	 * @param status The test suite execution status
 	 */
 	public void setGlobalStatus(TestStatus status) {
-		this.globalStatus = status;
+		this.globalStatus = Objects.requireNonNull(status);
 	}
 
 	/**
@@ -62,8 +63,7 @@ public class TestSuiteResult {
 	 */
 	public void addTestResult(TestResult testResult) {
 		testResults.add(testResult);
-		if (testResult.getStatus() != TestStatus.SUCCESS
-		    && (globalStatus == null || globalStatus == TestStatus.SUCCESS)) {
+		if (testResult.getStatus() != TestStatus.SUCCESS && globalStatus == TestStatus.SUCCESS) {
 			globalStatus = testResult.getStatus();
 		}
 	}
