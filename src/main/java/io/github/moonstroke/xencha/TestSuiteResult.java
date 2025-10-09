@@ -56,6 +56,19 @@ public class TestSuiteResult {
 	}
 
 	/**
+	 * Add the result of the execution of a test case from the suite.
+	 *
+	 * @param testResult The test result to add
+	 */
+	public void addTestResult(TestResult testResult) {
+		testResults.add(testResult);
+		if (testResult.getStatus() != TestStatus.SUCCESS
+		    && (globalStatus == null || globalStatus == TestStatus.SUCCESS)) {
+			globalStatus = testResult.getStatus();
+		}
+	}
+
+	/**
 	 * Retrieve the results of the execution of this suite's test cases.
 	 *
 	 * @return the test case execution results
