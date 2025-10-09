@@ -26,6 +26,12 @@ public class Main {
 	}
 
 	private static void logResults(Collection<TestSuiteResult> results) {
+		for (TestSuiteResult result : results) {
+			logTestSuiteResult(result);
+		}
+	}
+
+	private static void logTestSuiteResult(TestSuiteResult result) {
 		throw new UnsupportedOperationException("Not implemented"); // TODO
 	}
 }
