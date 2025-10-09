@@ -12,7 +12,12 @@
 			<documentation>The definition model of a test suite.</documentation>
 		</annotation>
 		<all>
-			<element name="name" type="string"/>
+			<element name="name" type="string" minOccurs="0">
+				<annotation>
+					<documentation>The name of the test suite.
+					If not specified, the base name of the descriptor file will be used.</documentation>
+				</annotation>
+			</element>
 			<element name="source" type="xencha:Source"/>
 			<element name="cases">
 				<complexType>
