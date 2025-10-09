@@ -3,6 +3,8 @@
 package io.github.moonstroke.xencha;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.Collection;
 
 import io.github.moonstroke.xencha.model.TestSuite;
 import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 
@@ -61,15 +64,24 @@ public class TestRunner {
 		}
 		Collection<TestSuiteResult> testSuiteResults = new ArrayList<>(paths.size());
 		for (Path path : paths) {
-			TestSuite testSuite = parseTestSuiteFromPath(path, testSuiteUnmarshaller);
+			TestSuite testSuite;
+			try {
+				testSuite = parseTestSuiteFromPath(path, testSuiteUnmarshaller);
+			} catch (IOException | JAXBException e) {
+				throw new RuntimeException(e);
+			}
 			TestSuiteResult result = runTestSuite(testSuite);
 			testSuiteResults.add(result);
 		}
 		return testSuiteResults;
 	}
 
-	private TestSuite parseTestSuiteFromPath(Path path, Unmarshaller unmarshaller) {
-		throw new UnsupportedOperationException("Not implemented"); // TODO
+	private TestSuite parseTestSuiteFromPath(Path path, Unmarshaller unmarshaller) throws IOException, JAXBException {
+		try (InputStream inputStream = Files.newInputStream(path)) {
+			@SuppressWarnings("unchecked")
+			JAXBElement<TestSuite> root = (JAXBElement<TestSuite>) unmarshaller.unmarshal(inputStream);
+			return root.getValue();
+		}
 	}
 
 	private TestSuiteResult runTestSuite(TestSuite testSuite) {
