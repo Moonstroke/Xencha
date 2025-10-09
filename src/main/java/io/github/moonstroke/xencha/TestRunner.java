@@ -55,18 +55,11 @@ public class TestRunner {
 	 * @return The results of the execution of the tests
 	 */
 	public Collection<TestSuiteResult> runTests() {
-		Unmarshaller testSuiteUnmarshaller;
-		try {
-			JAXBContext context = JAXBContext.newInstance(TestSuite.class);
-			testSuiteUnmarshaller = context.createUnmarshaller();
-		} catch (JAXBException e) {
-			throw new IllegalStateException(e);
-		}
 		Collection<TestSuiteResult> testSuiteResults = new ArrayList<>(paths.size());
 		for (Path path : paths) {
 			TestSuite testSuite;
 			try {
-				testSuite = parseTestSuiteFromPath(path, testSuiteUnmarshaller);
+				testSuite = parseTestSuiteFromPath(path, TestSuiteUnmarshaller.INSTANCE);
 			} catch (IOException | JAXBException e) {
 				TestSuiteResult errorResult = new TestSuiteResult(path.toString());
 				errorResult.setGlobalStatus(TestStatus.ERROR);
@@ -89,5 +82,20 @@ public class TestRunner {
 
 	private TestSuiteResult runTestSuite(TestSuite testSuite) {
 		throw new UnsupportedOperationException("Not implemented"); // TODO
+	}
+
+
+	private static class TestSuiteUnmarshaller {
+
+		private static final Unmarshaller INSTANCE;
+
+		static {
+			try {
+				JAXBContext context = JAXBContext.newInstance(TestSuite.class);
+				INSTANCE = context.createUnmarshaller();
+			} catch (JAXBException e) {
+				throw new ExceptionInInitializerError(e);
+			}
+		}
 	}
 }
