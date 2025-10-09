@@ -10,6 +10,12 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamSource;
+
+import org.w3c.dom.Element;
+
+import io.github.moonstroke.xencha.model.Source;
 import io.github.moonstroke.xencha.model.TestSuite;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
@@ -81,7 +87,25 @@ public class TestRunner {
 	}
 
 	private TestSuiteResult runTestSuite(TestSuite testSuite) {
-		throw new UnsupportedOperationException("Not implemented"); // TODO
+		TestSuiteResult result = new TestSuiteResult(testSuite.getName());
+		try {
+			javax.xml.transform.Source testSource = getTestSource(testSuite.getSource());
+		} catch (IOException e) {
+			result.setGlobalStatus(TestStatus.ERROR);
+			return result;
+		}
+		// TODO
+		return result;
+	}
+
+	private javax.xml.transform.Source getTestSource(Source testSource) throws IOException {
+		javax.xml.transform.Source src;
+		if (testSource.getPath() == null) {
+			src = new DOMSource((Element) testSource.getInline().getContent().get(0));
+		} else {
+			src = new StreamSource(Files.newInputStream(Path.of(testSource.getPath())));
+		}
+		return src;
 	}
 
 
