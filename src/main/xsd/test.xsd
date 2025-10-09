@@ -47,6 +47,13 @@
 			<documentation>The definition of an elementary execution of the test.</documentation>
 		</annotation>
 		<all>
+			<element name="name" type="string" minOccurs="0">
+				<annotation>
+					<documentation>The name of the test case.
+					If not specified, a default name containing the name of the test suite
+					and this case's number (starting from 1) will be used.</documentation>
+				</annotation>
+			</element>
 			<element name="input" type="xencha:Source"/>
 			<element name="expectedOutput" type="xencha:Source"/>
 		</all>
