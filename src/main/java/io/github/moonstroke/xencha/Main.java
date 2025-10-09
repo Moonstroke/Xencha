@@ -26,12 +26,23 @@ public class Main {
 	}
 
 	private static void logResults(Collection<TestSuiteResult> results) {
+		TestStatus runStatus = TestStatus.SUCCESS;
 		for (TestSuiteResult result : results) {
 			logTestSuiteResult(result);
+			TestStatus suiteStatus = result.getGlobalStatus();
+			if (suiteStatus == TestStatus.FAILURE && runStatus == TestStatus.SUCCESS
+			    || suiteStatus == TestStatus.ERROR && runStatus != TestStatus.ERROR) {
+				runStatus = suiteStatus;
+			}
 		}
+		logRunStatus(runStatus);
 	}
 
 	private static void logTestSuiteResult(TestSuiteResult result) {
+		throw new UnsupportedOperationException("Not implemented"); // TODO
+	}
+
+	private static void logRunStatus(TestStatus runStatus) {
 		throw new UnsupportedOperationException("Not implemented"); // TODO
 	}
 }
