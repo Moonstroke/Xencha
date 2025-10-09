@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import io.github.moonstroke.xencha.model.TestSuite;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -57,6 +59,20 @@ public class TestRunner {
 		} catch (JAXBException e) {
 			throw new IllegalStateException(e);
 		}
+		Collection<TestSuiteResult> testSuiteResults = new ArrayList<>(paths.size());
+		for (Path path : paths) {
+			TestSuite testSuite = parseTestSuiteFromPath(path, testSuiteUnmarshaller);
+			TestSuiteResult result = runTestSuite(testSuite);
+			testSuiteResults.add(result);
+		}
+		return testSuiteResults;
+	}
+
+	private TestSuite parseTestSuiteFromPath(Path path, Unmarshaller unmarshaller) {
+		throw new UnsupportedOperationException("Not implemented"); // TODO
+	}
+
+	private TestSuiteResult runTestSuite(TestSuite testSuite) {
 		throw new UnsupportedOperationException("Not implemented"); // TODO
 	}
 }
