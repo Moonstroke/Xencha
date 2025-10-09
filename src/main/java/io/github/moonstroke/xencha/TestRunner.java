@@ -40,4 +40,13 @@ public class TestRunner {
 		}
 		return new TestRunner(paths);
 	}
+
+	/**
+	 * Run the tests for which this runner was configured.
+	 *
+	 * @return The results of the execution of the tests
+	 */
+	public Collection<TestSuiteResult> runTests() {
+		throw new UnsupportedOperationException("Not implemented"); // TODO
+	}
 }
