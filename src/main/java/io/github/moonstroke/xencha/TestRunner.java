@@ -68,7 +68,10 @@ public class TestRunner {
 			try {
 				testSuite = parseTestSuiteFromPath(path, testSuiteUnmarshaller);
 			} catch (IOException | JAXBException e) {
-				throw new RuntimeException(e);
+				TestSuiteResult errorResult = new TestSuiteResult(path.toString());
+				errorResult.setGlobalStatus(TestStatus.ERROR);
+				testSuiteResults.add(errorResult);
+				continue;
 			}
 			TestSuiteResult result = runTestSuite(testSuite);
 			testSuiteResults.add(result);
