@@ -17,6 +17,10 @@ public class Main {
 	 * @param args A list of XML test descriptors
 	 */
 	public static void main(String[] args) {
+		if (args.length == 0) {
+			System.err.println("At least one XML descriptor path expected");
+			System.exit(1);
+		}
 		try {
 			TestRunner testRunner = TestRunner.forPaths(args);
 			Collection<TestSuiteResult> results = testRunner.runTests();
