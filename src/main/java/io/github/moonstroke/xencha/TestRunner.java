@@ -116,6 +116,13 @@ public class TestRunner {
 		List<Object> content = inlineSource.getContent();
 		Object root = content.get(0);
 		if (root instanceof String) {
+			String str = (String) root;
+			if (str.isBlank()) {
+				/* Accept (and skip) a leading whitespace node */
+				root = content.get(1);
+			}
+		}
+		if (root instanceof String) {
 			throw new IllegalStateException("Expected XSL stylesheet or transform, got text: \"" + root + "\"");
 		}
 		Element rootElement = (Element) root;
