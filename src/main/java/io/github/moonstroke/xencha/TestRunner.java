@@ -9,12 +9,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Element;
 
+import io.github.moonstroke.xencha.model.InlineSource;
 import io.github.moonstroke.xencha.model.Source;
 import io.github.moonstroke.xencha.model.TestSuite;
 import jakarta.xml.bind.JAXBContext;
@@ -101,11 +103,26 @@ public class TestRunner {
 	private javax.xml.transform.Source getTestSource(Source testSource) throws IOException {
 		javax.xml.transform.Source src;
 		if (testSource.getPath() == null) {
-			src = new DOMSource((Element) testSource.getInline().getContent().get(0));
+			src = new DOMSource(getInlineXslRoot(testSource.getInline()));
 		} else {
 			src = new StreamSource(Files.newInputStream(Path.of(testSource.getPath())));
 		}
 		return src;
+	}
+
+	/* Retrieve the root element of the inline source and ensure that it is a XSL stylesheet element */
+	protected Element getInlineXslRoot(InlineSource inlineSource) {
+		List<Object> content = inlineSource.getContent();
+		Object root = content.get(0);
+		if (root instanceof String) {
+			throw new IllegalStateException("Expected XSL stylesheet, got text: \"" + root + "\"");
+		}
+		Element rootElement = (Element) root;
+		if (!"http://www.w3.org/1999/XSL/Transform".equals(rootElement.getNamespaceURI())
+		    || !rootElement.getLocalName().equals("stylesheet")) {
+			throw new IllegalStateException("Expected XSL stylesheet or transform, got " + rootElement.getNodeName());
+		}
+		return rootElement;
 	}
 
 
