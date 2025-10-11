@@ -22,7 +22,7 @@ public class Main {
 			Collection<TestSuiteResult> results = testRunner.runTests();
 			logResults(results);
 		} catch (Exception e) {
-			System.err.println(e);
+			e.printStackTrace();
 			System.exit(1);
 		}
 	}
