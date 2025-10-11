@@ -114,10 +114,16 @@ public class TestRunner {
 	 * transform) */
 	protected Element getInlineXslRoot(InlineSource inlineSource) {
 		List<Object> content = inlineSource.getContent();
+		if (content.isEmpty()) {
+			throw new IllegalStateException("Expected XSL stylesheet or transform, got nothing");
+		}
 		Object root = content.get(0);
 		if (root instanceof String) {
 			String str = (String) root;
 			if (str.isBlank()) {
+				if (content.size() == 1) {
+					throw new IllegalStateException("Expected XSL stylesheet or transform, got nothing");
+				}
 				/* Accept (and skip) a leading whitespace node */
 				root = content.get(1);
 			}
