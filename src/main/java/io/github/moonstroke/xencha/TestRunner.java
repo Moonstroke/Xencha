@@ -110,16 +110,17 @@ public class TestRunner {
 		return src;
 	}
 
-	/* Retrieve the root element of the inline source and ensure that it is a XSL stylesheet element */
+	/* Retrieve the root element of the inline source and ensure that it is a valid XSL root element (stylesheet or
+	 * transform) */
 	protected Element getInlineXslRoot(InlineSource inlineSource) {
 		List<Object> content = inlineSource.getContent();
 		Object root = content.get(0);
 		if (root instanceof String) {
-			throw new IllegalStateException("Expected XSL stylesheet, got text: \"" + root + "\"");
+			throw new IllegalStateException("Expected XSL stylesheet or transform, got text: \"" + root + "\"");
 		}
 		Element rootElement = (Element) root;
 		if (!"http://www.w3.org/1999/XSL/Transform".equals(rootElement.getNamespaceURI())
-		    || !rootElement.getLocalName().equals("stylesheet")) {
+		    || !rootElement.getLocalName().equals("stylesheet") && !rootElement.getLocalName().equals("transform")) {
 			throw new IllegalStateException("Expected XSL stylesheet or transform, got " + rootElement.getNodeName());
 		}
 		return rootElement;
