@@ -92,7 +92,7 @@ public class TestRunner {
 		TestSuiteResult result = new TestSuiteResult(testSuite.getName());
 		try {
 			javax.xml.transform.Source testSource = getTestSource(testSuite.getSource());
-		} catch (IOException e) {
+		} catch (IOException | IllegalStateException e) {
 			result.setGlobalStatus(TestStatus.ERROR);
 			return result;
 		}
