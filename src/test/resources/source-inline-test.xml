@@ -5,6 +5,7 @@
 	<name>Tests for embedded source</name>
 	<source>
 		<inline>
+			<!-- This stylesheet does whatever blah blah blah -->
 			<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<!-- TODO -->
 			</xsl:stylesheet>
