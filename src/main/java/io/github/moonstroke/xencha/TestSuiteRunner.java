@@ -9,11 +9,15 @@ import java.nio.file.Path;
 import java.util.List;
 
 import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
@@ -81,10 +85,10 @@ public class TestSuiteRunner {
 	private TestStatus runTestCase(Transformer sourceStylesheet, Case c) {
 		try {
 			javax.xml.transform.Source input = getSource(c.getInput());
-			Result target = null; // TODO initialize
+			Result target = new DOMResult(DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument());
 			sourceStylesheet.transform(input, target);
 			// TODO compare result to case's expectedOutput
-		} catch (IllegalStateException | IOException | TransformerException e) {
+		} catch (IllegalStateException | IOException | TransformerException | ParserConfigurationException e) {
 			return TestStatus.ERROR;
 		}
 		return TestStatus.SUCCESS;
