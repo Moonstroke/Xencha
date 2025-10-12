@@ -85,10 +85,10 @@ public class TestSuiteRunner {
 	private TestStatus runTestCase(Transformer sourceStylesheet, Case c) {
 		try {
 			javax.xml.transform.Source input = getSource(c.getInput());
-			Result target = new DOMResult(DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument());
+			Result target = new DOMResult(TestSuiteDocumentBuilder.INSTANCE.newDocument());
 			sourceStylesheet.transform(input, target);
 			// TODO compare result to case's expectedOutput
-		} catch (IllegalStateException | IOException | TransformerException | ParserConfigurationException e) {
+		} catch (IllegalStateException | IOException | TransformerException e) {
 			return TestStatus.ERROR;
 		}
 		return TestStatus.SUCCESS;
@@ -178,5 +178,17 @@ public class TestSuiteRunner {
 	private static class TestSuiteTransformerFactory {
 
 		private static final TransformerFactory INSTANCE = TransformerFactory.newInstance();
+	}
+
+	private static class TestSuiteDocumentBuilder {
+
+		private static final DocumentBuilder INSTANCE;
+		static {
+			try {
+				INSTANCE = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			} catch (ParserConfigurationException e) {
+				throw new ExceptionInInitializerError(e);
+			}
+		}
 	}
 }
