@@ -25,7 +25,15 @@
 			<name>Test for embedded source with embedded input/output</name>
 			<input>
 				<inline>
-					<!-- TODO -->
+					<html lang="en">
+						<head>
+							<title>Test with embedded input</title>
+						</head>
+						<body>
+							<h1>This is a test case that uses embedded input data</h1>
+							<p>This, incidentally, is the embedded input data.</p>
+						</body>
+					</html>
 				</inline>
 			</input>
 			<expectedOutput>
