@@ -12,6 +12,9 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.xml.XMLConstants;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
@@ -95,11 +98,13 @@ public class TestRunner {
 		TestSuiteResult result = new TestSuiteResult(testSuite.getName());
 		try {
 			javax.xml.transform.Source testSource = getTestSource(testSuite.getSource());
-		} catch (IOException | IllegalStateException e) {
+			TransformerFactory factory = TransformerFactory.newInstance();
+			Transformer sourceStylesheet = factory.newTransformer(testSource);
+			// TODO
+		} catch (IOException | IllegalStateException | TransformerConfigurationException e) {
 			result.setGlobalStatus(TestStatus.ERROR);
 			return result;
 		}
-		// TODO
 		return result;
 	}
 
