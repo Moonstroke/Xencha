@@ -91,7 +91,26 @@ public class TestSuiteRunner {
 	}
 
 	private javax.xml.transform.Source getSource(Source source) throws IOException {
-		throw new UnsupportedOperationException("Not implemented"); // TODO
+		if (source.getPath() == null) {
+			List<Object> content = source.getInline().getContent();
+			if (content.isEmpty()) {
+				return new DOMSource(/* empty source */);
+			}
+			Object root = content.get(0);
+			if (root instanceof String) {
+				String text = (String) root;
+				if (text.isBlank()) {
+					/* Whitespace only => discard (consider empty) */
+					if (content.size() == 1) {
+						return new DOMSource(/* empty source */);
+					}
+					root = content.get(1);
+				}
+				throw new IllegalStateException("Expected XML input, got text: \"" + text + "\"");
+			}
+			return new DOMSource((Element) root);
+		}
+		return new StreamSource(Files.newInputStream(Path.of(source.getPath())));
 	}
 
 	private javax.xml.transform.Source getTestSource(Source testSource) throws IOException {
