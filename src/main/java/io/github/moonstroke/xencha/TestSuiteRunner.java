@@ -76,6 +76,7 @@ public class TestSuiteRunner {
 	private javax.xml.transform.Source getTestSource(Source testSource) throws IOException {
 		javax.xml.transform.Source src;
 		if (testSource.getPath() == null) {
+			/* Node.getOwnerDocument conveniently returns a standalone document object, not the descriptor's */
 			src = new DOMSource(getInlineXslRoot(testSource.getInline()).getOwnerDocument());
 		} else {
 			src = new StreamSource(Files.newInputStream(Path.of(testSource.getPath())));
