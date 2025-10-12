@@ -87,7 +87,10 @@ public class TestSuiteRunner {
 			javax.xml.transform.Source input = getSource(c.getInput());
 			Result target = new DOMResult(TestSuiteDocumentBuilder.INSTANCE.newDocument());
 			sourceStylesheet.transform(input, target);
-			// TODO compare result to case's expectedOutput
+			javax.xml.transform.Source expectedOutput = getSource(c.getExpectedOutput());
+			if (!((DOMSource) expectedOutput).getNode().isEqualNode(((DOMResult) target).getNode())) {
+				return TestStatus.FAILURE;
+			}
 		} catch (IllegalStateException | IOException | SAXException | TransformerException e) {
 			return TestStatus.ERROR;
 		}
