@@ -63,8 +63,7 @@ public class TestSuiteRunner {
 		TestSuiteResult result = new TestSuiteResult(testSuite.getName());
 		try {
 			javax.xml.transform.Source testSource = getTestSource(testSuite.getSource());
-			TransformerFactory factory = TransformerFactory.newInstance();
-			Transformer sourceStylesheet = factory.newTransformer(testSource);
+			Transformer sourceStylesheet = TestSuiteTransformerFactory.INSTANCE.newTransformer(testSource);
 			// TODO
 		} catch (IOException | IllegalStateException | TransformerConfigurationException e) {
 			result.setGlobalStatus(TestStatus.ERROR);
@@ -128,5 +127,10 @@ public class TestSuiteRunner {
 				throw new ExceptionInInitializerError(e);
 			}
 		}
+	}
+
+	private static class TestSuiteTransformerFactory {
+
+		private static final TransformerFactory INSTANCE = TransformerFactory.newInstance();
 	}
 }
