@@ -88,13 +88,13 @@ public class TestSuiteRunner {
 			Result target = new DOMResult(TestSuiteDocumentBuilder.INSTANCE.newDocument());
 			sourceStylesheet.transform(input, target);
 			// TODO compare result to case's expectedOutput
-		} catch (IllegalStateException | IOException | TransformerException e) {
+		} catch (IllegalStateException | IOException | SAXException | TransformerException e) {
 			return TestStatus.ERROR;
 		}
 		return TestStatus.SUCCESS;
 	}
 
-	private javax.xml.transform.Source getSource(Source source) throws IOException {
+	private javax.xml.transform.Source getSource(Source source) throws IOException, SAXException {
 		if (source.getPath() == null) {
 			List<Object> content = source.getInline().getContent();
 			if (content.isEmpty()) {
@@ -115,7 +115,7 @@ public class TestSuiteRunner {
 			}
 			return new DOMSource((Element) root);
 		}
-		return new StreamSource(Files.newInputStream(Path.of(source.getPath())));
+		return new DOMSource(TestSuiteDocumentBuilder.INSTANCE.parse(source.getPath()));
 	}
 
 	private javax.xml.transform.Source getTestSource(Source testSource) throws IOException {
