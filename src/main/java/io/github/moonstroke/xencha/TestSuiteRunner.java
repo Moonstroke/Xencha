@@ -105,8 +105,9 @@ public class TestSuiteRunner {
 						return new DOMSource(/* empty source */);
 					}
 					root = content.get(1);
+				} else {
+					throw new IllegalStateException("Expected XML input, got text: \"" + text + "\"");
 				}
-				throw new IllegalStateException("Expected XML input, got text: \"" + text + "\"");
 			}
 			return new DOMSource((Element) root);
 		}
