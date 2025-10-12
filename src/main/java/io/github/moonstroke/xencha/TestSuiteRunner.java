@@ -19,6 +19,7 @@ import javax.xml.validation.SchemaFactory;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import io.github.moonstroke.xencha.model.Case;
 import io.github.moonstroke.xencha.model.InlineSource;
 import io.github.moonstroke.xencha.model.Source;
 import io.github.moonstroke.xencha.model.TestSuite;
@@ -64,12 +65,19 @@ public class TestSuiteRunner {
 		try {
 			javax.xml.transform.Source testSource = getTestSource(testSuite.getSource());
 			Transformer sourceStylesheet = TestSuiteTransformerFactory.INSTANCE.newTransformer(testSource);
-			// TODO
+			for (Case c : testSuite.getCases().getCase()) {
+				TestStatus status = runTestCase(sourceStylesheet, c);
+				result.addTestResult(new TestResult(c.getName(), status));
+			}
 		} catch (IOException | IllegalStateException | TransformerConfigurationException e) {
 			result.setGlobalStatus(TestStatus.ERROR);
 			return result;
 		}
 		return result;
+	}
+
+	private TestStatus runTestCase(Transformer sourceStylesheet, Case c) {
+		throw new UnsupportedOperationException("Not implemented"); // TODO
 	}
 
 	private javax.xml.transform.Source getTestSource(Source testSource) throws IOException {
