@@ -111,7 +111,7 @@ public class TestRunner {
 	private javax.xml.transform.Source getTestSource(Source testSource) throws IOException {
 		javax.xml.transform.Source src;
 		if (testSource.getPath() == null) {
-			src = new DOMSource(getInlineXslRoot(testSource.getInline()));
+			src = new DOMSource(getInlineXslRoot(testSource.getInline()).getOwnerDocument());
 		} else {
 			src = new StreamSource(Files.newInputStream(Path.of(testSource.getPath())));
 		}
