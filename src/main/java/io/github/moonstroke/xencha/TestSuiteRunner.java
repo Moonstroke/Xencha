@@ -9,8 +9,10 @@ import java.nio.file.Path;
 import java.util.List;
 
 import javax.xml.XMLConstants;
+import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
@@ -77,6 +79,18 @@ public class TestSuiteRunner {
 	}
 
 	private TestStatus runTestCase(Transformer sourceStylesheet, Case c) {
+		try {
+			javax.xml.transform.Source input = getSource(c.getInput());
+			Result target = null; // TODO initialize
+			sourceStylesheet.transform(input, target);
+			// TODO compare result to case's expectedOutput
+		} catch (IllegalStateException | IOException | TransformerException e) {
+			return TestStatus.ERROR;
+		}
+		return TestStatus.SUCCESS;
+	}
+
+	private javax.xml.transform.Source getSource(Source source) throws IOException {
 		throw new UnsupportedOperationException("Not implemented"); // TODO
 	}
 
