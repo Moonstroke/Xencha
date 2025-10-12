@@ -116,7 +116,7 @@ public class TestSuiteRunner {
 					throw new IllegalStateException("Expected XML input, got text: \"" + text + "\"");
 				}
 			}
-			return new DOMSource((Element) root);
+			return new DOMSource(((Element) root).getOwnerDocument());
 		}
 		return new DOMSource(TestSuiteDocumentBuilder.INSTANCE.parse(source.getPath()));
 	}
