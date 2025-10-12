@@ -11,10 +11,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.SchemaFactory;
 
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import io.github.moonstroke.xencha.model.InlineSource;
 import io.github.moonstroke.xencha.model.Source;
@@ -148,7 +151,9 @@ public class TestRunner {
 			try {
 				JAXBContext context = JAXBContext.newInstance(TestSuite.class);
 				INSTANCE = context.createUnmarshaller();
-			} catch (JAXBException e) {
+				INSTANCE.setSchema(SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
+				                                .newSchema(TestRunner.class.getResource("/test.xsd")));
+			} catch (JAXBException | SAXException e) {
 				throw new ExceptionInInitializerError(e);
 			}
 		}
