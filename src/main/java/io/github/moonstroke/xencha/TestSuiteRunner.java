@@ -84,6 +84,7 @@ public class TestSuiteRunner {
 
 	private TestResult runTestCase(Transformer sourceStylesheet, Case c) {
 		TestStatus status = TestStatus.SUCCESS;
+		String details = null;
 		try {
 			javax.xml.transform.Source input = getSource(c.getInput());
 			Result target = new DOMResult(TestSuiteDocumentBuilder.INSTANCE.newDocument());
@@ -91,11 +92,13 @@ public class TestSuiteRunner {
 			javax.xml.transform.Source expectedOutput = getSource(c.getExpectedOutput());
 			if (!areEqual(expectedOutput, target)) {
 				status = TestStatus.FAILURE;
+				details = "The output of the test differs from the expected output";
 			}
 		} catch (RuntimeException | IOException | SAXException | TransformerException e) {
 			status = TestStatus.ERROR;
+			details = e.toString();
 		}
-		return new TestResult(c.getName(), status);
+		return new TestResult(c.getName(), status, details);
 	}
 
 	private boolean areEqual(javax.xml.transform.Source expectedOutput, Result obtainedOutput) {
