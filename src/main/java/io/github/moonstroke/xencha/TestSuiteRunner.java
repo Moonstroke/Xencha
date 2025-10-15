@@ -88,13 +88,17 @@ public class TestSuiteRunner {
 			Result target = new DOMResult(TestSuiteDocumentBuilder.INSTANCE.newDocument());
 			sourceStylesheet.transform(input, target);
 			javax.xml.transform.Source expectedOutput = getSource(c.getExpectedOutput());
-			if (!((DOMSource) expectedOutput).getNode().isEqualNode(((DOMResult) target).getNode())) {
+			if (!areEqual(expectedOutput, target)) {
 				return TestStatus.FAILURE;
 			}
 		} catch (IllegalStateException | IOException | SAXException | TransformerException e) {
 			return TestStatus.ERROR;
 		}
 		return TestStatus.SUCCESS;
+	}
+
+	private boolean areEqual(javax.xml.transform.Source expectedOutput, Result obtainedOutput) {
+		return ((DOMSource) expectedOutput).getNode().isEqualNode(((DOMResult) obtainedOutput).getNode());
 	}
 
 	private javax.xml.transform.Source getSource(Source source) throws IOException, SAXException {
