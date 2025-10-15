@@ -72,8 +72,8 @@ public class TestSuiteRunner {
 			javax.xml.transform.Source testSource = getTestSource(testSuite.getSource());
 			Transformer sourceStylesheet = TestSuiteTransformerFactory.INSTANCE.newTransformer(testSource);
 			for (Case c : testSuite.getCases().getCase()) {
-				TestStatus status = runTestCase(sourceStylesheet, c);
-				result.addTestResult(new TestResult(c.getName(), status));
+				TestResult caseResult = runTestCase(sourceStylesheet, c);
+				result.addTestResult(caseResult);
 			}
 		} catch (IOException | IllegalStateException | TransformerConfigurationException e) {
 			result.setGlobalStatus(TestStatus.ERROR);
@@ -82,19 +82,20 @@ public class TestSuiteRunner {
 		return result;
 	}
 
-	private TestStatus runTestCase(Transformer sourceStylesheet, Case c) {
+	private TestResult runTestCase(Transformer sourceStylesheet, Case c) {
+		TestStatus status = TestStatus.SUCCESS;
 		try {
 			javax.xml.transform.Source input = getSource(c.getInput());
 			Result target = new DOMResult(TestSuiteDocumentBuilder.INSTANCE.newDocument());
 			sourceStylesheet.transform(input, target);
 			javax.xml.transform.Source expectedOutput = getSource(c.getExpectedOutput());
 			if (!areEqual(expectedOutput, target)) {
-				return TestStatus.FAILURE;
+				status = TestStatus.FAILURE;
 			}
 		} catch (RuntimeException | IOException | SAXException | TransformerException e) {
-			return TestStatus.ERROR;
+			status = TestStatus.ERROR;
 		}
-		return TestStatus.SUCCESS;
+		return new TestResult(c.getName(), status);
 	}
 
 	private boolean areEqual(javax.xml.transform.Source expectedOutput, Result obtainedOutput) {
