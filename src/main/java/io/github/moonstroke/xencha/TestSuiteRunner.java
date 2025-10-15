@@ -91,7 +91,7 @@ public class TestSuiteRunner {
 			if (!areEqual(expectedOutput, target)) {
 				return TestStatus.FAILURE;
 			}
-		} catch (IllegalStateException | IOException | SAXException | TransformerException e) {
+		} catch (RuntimeException | IOException | SAXException | TransformerException e) {
 			return TestStatus.ERROR;
 		}
 		return TestStatus.SUCCESS;
