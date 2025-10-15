@@ -98,6 +98,9 @@ public class TestSuiteRunner {
 	}
 
 	private boolean areEqual(javax.xml.transform.Source expectedOutput, Result obtainedOutput) {
+		if (!(expectedOutput instanceof DOMSource) || !(obtainedOutput instanceof DOMResult)) {
+			throw new UnsupportedOperationException("Only DOM source/result objects are managed"); // TODO handle other subtypes
+		}
 		return ((DOMSource) expectedOutput).getNode().isEqualNode(((DOMResult) obtainedOutput).getNode());
 	}
 
