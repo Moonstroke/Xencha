@@ -13,6 +13,7 @@ public class TestSuiteResult {
 
 	private final String name;
 	private TestStatus globalStatus;
+	private String globalDetails;
 	private final Collection<TestResult> testResults = new ArrayList<>();
 
 
@@ -54,6 +55,24 @@ public class TestSuiteResult {
 	 */
 	public TestStatus getGlobalStatus() {
 		return globalStatus;
+	}
+
+	/**
+	 * Assign the given details to this test suite execution.
+	 *
+	 * @param status The test suite execution details
+	 */
+	public void setGlobalDetails(String details) {
+		this.globalDetails = Objects.requireNonNull(details);
+	}
+
+	/**
+	 * Retrieve the global details of the execution of the test suite.
+	 *
+	 * @return the global details of the suite's execution, or {@code null} if unspecified
+	 */
+	public String getGlobalDetails() {
+		return globalDetails;
 	}
 
 	/**
