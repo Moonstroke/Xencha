@@ -77,6 +77,7 @@ public class TestSuiteRunner {
 			}
 		} catch (IOException | IllegalStateException | TransformerConfigurationException e) {
 			result.setGlobalStatus(TestStatus.ERROR);
+			result.setGlobalDetails(e.toString());
 			return result;
 		}
 		return result;

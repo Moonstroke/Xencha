@@ -87,6 +87,7 @@ public class TestSuiteResult {
 		if (testResultStatus == TestStatus.FAILURE && globalStatus == TestStatus.SUCCESS
 		    || testResultStatus == TestStatus.ERROR && globalStatus != TestStatus.ERROR) {
 			globalStatus = testResultStatus;
+			globalDetails = testResult.getDetails();
 		}
 	}
 
