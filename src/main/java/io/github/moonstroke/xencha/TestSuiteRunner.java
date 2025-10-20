@@ -83,6 +83,46 @@ public class TestSuiteRunner {
 		return result;
 	}
 
+	private javax.xml.transform.Source getTestSource(Source testSource) throws IOException {
+		javax.xml.transform.Source src;
+		if (testSource.getPath() == null) {
+			/* Node.getOwnerDocument conveniently returns a standalone document object, not the descriptor's */
+			src = new DOMSource(getInlineXslRoot(testSource.getInline()).getOwnerDocument());
+		} else {
+			src = new StreamSource(Files.newInputStream(Path.of(testSource.getPath())));
+		}
+		return src;
+	}
+
+	/* Retrieve the root element of the inline source and ensure that it is a valid XSL root element (stylesheet or
+	 * transform) */
+	private Element getInlineXslRoot(InlineSource inlineSource) {
+		List<Object> content = inlineSource.getContent();
+		if (content.isEmpty()) {
+			throw new IllegalStateException("Expected XSL stylesheet or transform, got nothing");
+		}
+		Object root = content.get(0);
+		if (root instanceof String) {
+			String str = (String) root;
+			if (str.isBlank()) {
+				if (content.size() == 1) {
+					throw new IllegalStateException("Expected XSL stylesheet or transform, got nothing");
+				}
+				/* Accept (and skip) a leading whitespace node */
+				root = content.get(1);
+			}
+		}
+		if (root instanceof String) {
+			throw new IllegalStateException("Expected XSL stylesheet or transform, got text: \"" + root + "\"");
+		}
+		Element rootElement = (Element) root;
+		if (!"http://www.w3.org/1999/XSL/Transform".equals(rootElement.getNamespaceURI())
+		    || !rootElement.getLocalName().equals("stylesheet") && !rootElement.getLocalName().equals("transform")) {
+			throw new IllegalStateException("Expected XSL stylesheet or transform, got " + rootElement.getNodeName());
+		}
+		return rootElement;
+	}
+
 	private TestResult runTestCase(Transformer sourceStylesheet, Case c) {
 		TestStatus status = TestStatus.SUCCESS;
 		String details = null;
@@ -100,26 +140,6 @@ public class TestSuiteRunner {
 			details = e.toString();
 		}
 		return new TestResult(c.getName(), status, details);
-	}
-
-	private boolean areEqual(javax.xml.transform.Source expectedOutput, Result obtainedOutput) {
-		return toDOMSource(expectedOutput).getNode().isEqualNode(toDOMResult(obtainedOutput).getNode());
-	}
-
-	private static DOMSource toDOMSource(javax.xml.transform.Source source) {
-		if (source instanceof DOMSource) {
-			return (DOMSource) source;
-		}
-		// TODO handle other subtypes
-		throw new UnsupportedOperationException("Source type not handled: " + source.getClass());
-	}
-
-	private static DOMResult toDOMResult(Result result) {
-		if (result instanceof DOMResult) {
-			return (DOMResult) result;
-		}
-		// TODO handle other subtypes
-		throw new UnsupportedOperationException("Result type not handled: " + result.getClass());
 	}
 
 	private javax.xml.transform.Source getSource(Source source) throws IOException, SAXException {
@@ -146,44 +166,24 @@ public class TestSuiteRunner {
 		return new DOMSource(TestSuiteDocumentBuilder.INSTANCE.parse(source.getPath()));
 	}
 
-	private javax.xml.transform.Source getTestSource(Source testSource) throws IOException {
-		javax.xml.transform.Source src;
-		if (testSource.getPath() == null) {
-			/* Node.getOwnerDocument conveniently returns a standalone document object, not the descriptor's */
-			src = new DOMSource(getInlineXslRoot(testSource.getInline()).getOwnerDocument());
-		} else {
-			src = new StreamSource(Files.newInputStream(Path.of(testSource.getPath())));
-		}
-		return src;
+	private boolean areEqual(javax.xml.transform.Source expectedOutput, Result obtainedOutput) {
+		return toDOMSource(expectedOutput).getNode().isEqualNode(toDOMResult(obtainedOutput).getNode());
 	}
 
-	/* Retrieve the root element of the inline source and ensure that it is a valid XSL root element (stylesheet or
-	 * transform) */
-	protected Element getInlineXslRoot(InlineSource inlineSource) {
-		List<Object> content = inlineSource.getContent();
-		if (content.isEmpty()) {
-			throw new IllegalStateException("Expected XSL stylesheet or transform, got nothing");
+	private static DOMSource toDOMSource(javax.xml.transform.Source source) {
+		if (source instanceof DOMSource) {
+			return (DOMSource) source;
 		}
-		Object root = content.get(0);
-		if (root instanceof String) {
-			String str = (String) root;
-			if (str.isBlank()) {
-				if (content.size() == 1) {
-					throw new IllegalStateException("Expected XSL stylesheet or transform, got nothing");
-				}
-				/* Accept (and skip) a leading whitespace node */
-				root = content.get(1);
-			}
+		// TODO handle other subtypes
+		throw new UnsupportedOperationException("Source type not handled: " + source.getClass());
+	}
+
+	private static DOMResult toDOMResult(Result result) {
+		if (result instanceof DOMResult) {
+			return (DOMResult) result;
 		}
-		if (root instanceof String) {
-			throw new IllegalStateException("Expected XSL stylesheet or transform, got text: \"" + root + "\"");
-		}
-		Element rootElement = (Element) root;
-		if (!"http://www.w3.org/1999/XSL/Transform".equals(rootElement.getNamespaceURI())
-		    || !rootElement.getLocalName().equals("stylesheet") && !rootElement.getLocalName().equals("transform")) {
-			throw new IllegalStateException("Expected XSL stylesheet or transform, got " + rootElement.getNodeName());
-		}
-		return rootElement;
+		// TODO handle other subtypes
+		throw new UnsupportedOperationException("Result type not handled: " + result.getClass());
 	}
 
 
