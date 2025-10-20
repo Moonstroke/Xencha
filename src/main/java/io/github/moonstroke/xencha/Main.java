@@ -5,6 +5,7 @@ package io.github.moonstroke.xencha;
 import java.io.PrintStream;
 import java.util.Collection;
 import java.util.EnumMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -66,6 +67,26 @@ public class Main {
 	}
 
 	private static void logRunStatus(TestStatus runStatus, Map<TestStatus, Integer> statusCounts) {
-		System.out.println("Status: " + runStatus + " " + statusCounts); // TODO improve display
+		System.out.print("Final status: " + runStatus + " (");
+		boolean first = true;
+		for (Map.Entry<TestStatus, Integer> statusCount : statusCounts.entrySet()) {
+			TestStatus status = statusCount.getKey();
+			int count = statusCount.getValue();
+			String statusName = status.name().toLowerCase(Locale.ROOT);
+			System.out.print(statusName);
+			/* Pluralize */
+			if (statusName.endsWith("s")) {
+				System.out.print("es");
+			} else {
+				System.out.print('s');
+			}
+			System.out.print(": " + count);
+			if (first) {
+				first = false;
+			} else {
+				System.out.println(", ");
+			}
+		}
+		System.out.println(')');
 	}
 }
