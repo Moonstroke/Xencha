@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -27,7 +28,6 @@ import org.xml.sax.SAXException;
 
 import io.github.moonstroke.xencha.model.Case;
 import io.github.moonstroke.xencha.model.InlineSource;
-import io.github.moonstroke.xencha.model.Source;
 import io.github.moonstroke.xencha.model.TestSuite;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
@@ -69,7 +69,7 @@ public class TestSuiteRunner {
 	private TestSuiteResult runTestSuite(TestSuite testSuite) {
 		TestSuiteResult result = new TestSuiteResult(testSuite.getName());
 		try {
-			javax.xml.transform.Source testSource = getTestSource(testSuite.getSource());
+			Source testSource = getTestSource(testSuite.getSource());
 			Transformer sourceStylesheet = TestSuiteTransformerFactory.INSTANCE.newTransformer(testSource);
 			for (Case c : testSuite.getCases().getCase()) {
 				TestResult caseResult = runTestCase(sourceStylesheet, c);
@@ -83,8 +83,8 @@ public class TestSuiteRunner {
 		return result;
 	}
 
-	private javax.xml.transform.Source getTestSource(Source testSource) throws IOException {
-		javax.xml.transform.Source src;
+	private Source getTestSource(io.github.moonstroke.xencha.model.Source testSource) throws IOException {
+		Source src;
 		if (testSource.getPath() == null) {
 			/* Node.getOwnerDocument conveniently returns a standalone document object, not the descriptor's */
 			src = new DOMSource(getInlineXslRoot(testSource.getInline()).getOwnerDocument());
@@ -127,9 +127,9 @@ public class TestSuiteRunner {
 		TestStatus status = TestStatus.SUCCESS;
 		String details = null;
 		try {
-			javax.xml.transform.Source input = getSource(c.getInput());
+			Source input = getSource(c.getInput());
 			Result target = transform(sourceStylesheet, input);
-			javax.xml.transform.Source expectedOutput = getSource(c.getExpectedOutput());
+			Source expectedOutput = getSource(c.getExpectedOutput());
 			if (!areEqual(expectedOutput, target)) {
 				status = TestStatus.FAILURE;
 				details = "The output of the test differs from the expected output";
@@ -141,14 +141,13 @@ public class TestSuiteRunner {
 		return new TestResult(c.getName(), status, details);
 	}
 
-	private Result transform(Transformer sourceStylesheet,
-	                         javax.xml.transform.Source input) throws TransformerException {
+	private Result transform(Transformer sourceStylesheet, Source input) throws TransformerException {
 		Result target = new DOMResult(TestSuiteDocumentBuilder.INSTANCE.newDocument());
 		sourceStylesheet.transform(input, target);
 		return target;
 	}
 
-	private javax.xml.transform.Source getSource(Source source) throws IOException, SAXException {
+	private Source getSource(io.github.moonstroke.xencha.model.Source source) throws IOException, SAXException {
 		if (source.getPath() == null) {
 			List<Object> content = source.getInline().getContent();
 			if (content.isEmpty()) {
@@ -172,11 +171,11 @@ public class TestSuiteRunner {
 		return new DOMSource(TestSuiteDocumentBuilder.INSTANCE.parse(source.getPath()));
 	}
 
-	private boolean areEqual(javax.xml.transform.Source expectedOutput, Result obtainedOutput) {
+	private boolean areEqual(Source expectedOutput, Result obtainedOutput) {
 		return toDOMSource(expectedOutput).getNode().isEqualNode(toDOMResult(obtainedOutput).getNode());
 	}
 
-	private static DOMSource toDOMSource(javax.xml.transform.Source source) {
+	private static DOMSource toDOMSource(Source source) {
 		if (source instanceof DOMSource) {
 			return (DOMSource) source;
 		}
