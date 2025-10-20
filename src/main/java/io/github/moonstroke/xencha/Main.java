@@ -48,10 +48,23 @@ public class Main {
 	}
 
 	private static void logTestSuiteResult(TestSuiteResult result) {
-		throw new UnsupportedOperationException("Not implemented"); // TODO
+		System.out.print(result.getName() + ": " + result.getStatus());
+		if (result.getDetails() == null) {
+			System.out.println();
+		} else {
+			System.out.println(" (" + result.getDetails() + ")");
+		}
+		for (TestResult testResult : result.getTestResults()) {
+			System.out.print("\t- " + testResult.getName() + ": " + testResult.getStatus());
+			if (testResult.getDetails() == null) {
+				System.out.println();
+			} else {
+				System.out.println(" (" + testResult.getDetails() + ")");
+			}
+		}
 	}
 
 	private static void logRunStatus(TestStatus runStatus, Map<TestStatus, Integer> statusCounts) {
-		throw new UnsupportedOperationException("Not implemented"); // TODO
+		System.out.println("Status: " + runStatus + " " + statusCounts); // TODO improve display
 	}
 }
