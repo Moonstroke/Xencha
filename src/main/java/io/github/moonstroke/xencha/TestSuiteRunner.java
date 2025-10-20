@@ -103,10 +103,23 @@ public class TestSuiteRunner {
 	}
 
 	private boolean areEqual(javax.xml.transform.Source expectedOutput, Result obtainedOutput) {
-		if (!(expectedOutput instanceof DOMSource) || !(obtainedOutput instanceof DOMResult)) {
-			throw new UnsupportedOperationException("Only DOM source/result objects are managed"); // TODO handle other subtypes
+		return toDOMSource(expectedOutput).getNode().isEqualNode(toDOMResult(obtainedOutput).getNode());
+	}
+
+	private static DOMSource toDOMSource(javax.xml.transform.Source source) {
+		if (source instanceof DOMSource) {
+			return (DOMSource) source;
 		}
-		return ((DOMSource) expectedOutput).getNode().isEqualNode(((DOMResult) obtainedOutput).getNode());
+		// TODO handle other subtypes
+		throw new UnsupportedOperationException("Source type not handled: " + source.getClass());
+	}
+
+	private static DOMResult toDOMResult(Result result) {
+		if (result instanceof DOMResult) {
+			return (DOMResult) result;
+		}
+		// TODO handle other subtypes
+		throw new UnsupportedOperationException("Result type not handled: " + result.getClass());
 	}
 
 	private javax.xml.transform.Source getSource(Source source) throws IOException, SAXException {
