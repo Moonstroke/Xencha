@@ -2,6 +2,7 @@
  * SPDX-License-Identifier: MIT */
 package io.github.moonstroke.xencha;
 
+import java.io.PrintStream;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Map;
@@ -48,19 +49,19 @@ public class Main {
 	}
 
 	private static void logTestSuiteResult(TestSuiteResult result) {
-		System.out.print(result.getName() + ": " + result.getStatus());
-		if (result.getDetails() == null) {
-			System.out.println();
-		} else {
-			System.out.println(" (" + result.getDetails() + ")");
-		}
+		printTestResultData(System.out, result.getName(), result.getStatus(), result.getDetails());
 		for (TestResult testResult : result.getTestResults()) {
-			System.out.print("\t- " + testResult.getName() + ": " + testResult.getStatus());
-			if (testResult.getDetails() == null) {
-				System.out.println();
-			} else {
-				System.out.println(" (" + testResult.getDetails() + ")");
-			}
+			System.out.print("\t- ");
+			printTestResultData(System.out, testResult.getName(), testResult.getStatus(), testResult.getDetails());
+		}
+	}
+
+	private static void printTestResultData(PrintStream pw, String name, TestStatus status, String details) {
+		pw.print(name + ": " + status);
+		if (details == null) {
+			pw.println();
+		} else {
+			pw.println(" (" + details + ")");
 		}
 	}
 
