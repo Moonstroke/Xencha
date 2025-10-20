@@ -53,6 +53,7 @@ public class TestSuiteRunner {
 		} catch (IOException | JAXBException e) {
 			TestSuiteResult errorResult = new TestSuiteResult(testSuitePath.toString());
 			errorResult.setStatus(TestStatus.ERROR);
+			errorResult.setDetails(e.toString());
 			return errorResult;
 		}
 		return runTestSuite(testSuite);
