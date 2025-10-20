@@ -36,7 +36,7 @@ public class Main {
 		Map<TestStatus, Integer> statusCounts = new EnumMap<>(TestStatus.class);
 		for (TestSuiteResult result : results) {
 			logTestSuiteResult(result);
-			TestStatus suiteStatus = result.getGlobalStatus();
+			TestStatus suiteStatus = result.getStatus();
 			if (suiteStatus == TestStatus.FAILURE && runStatus == TestStatus.SUCCESS
 			    || suiteStatus == TestStatus.ERROR && runStatus != TestStatus.ERROR) {
 				runStatus = suiteStatus;

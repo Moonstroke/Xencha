@@ -12,8 +12,8 @@ import java.util.Objects;
 public class TestSuiteResult {
 
 	private final String name;
-	private TestStatus globalStatus;
-	private String globalDetails;
+	private TestStatus status;
+	private String details;
 	private final Collection<TestResult> testResults = new ArrayList<>();
 
 
@@ -24,7 +24,7 @@ public class TestSuiteResult {
 	 */
 	public TestSuiteResult(String name) {
 		this.name = Objects.requireNonNull(name);
-		this.globalStatus = TestStatus.SUCCESS;
+		this.status = TestStatus.SUCCESS;
 	}
 
 	/**
@@ -41,8 +41,8 @@ public class TestSuiteResult {
 	 *
 	 * @param status The test suite execution status
 	 */
-	public void setGlobalStatus(TestStatus status) {
-		this.globalStatus = Objects.requireNonNull(status);
+	public void setStatus(TestStatus status) {
+		this.status = Objects.requireNonNull(status);
 	}
 
 	/**
@@ -53,8 +53,8 @@ public class TestSuiteResult {
 	 *
 	 * @return the global status of the suite's execution
 	 */
-	public TestStatus getGlobalStatus() {
-		return globalStatus;
+	public TestStatus getStatus() {
+		return status;
 	}
 
 	/**
@@ -62,8 +62,8 @@ public class TestSuiteResult {
 	 *
 	 * @param status The test suite execution details
 	 */
-	public void setGlobalDetails(String details) {
-		this.globalDetails = Objects.requireNonNull(details);
+	public void setDetails(String details) {
+		this.details = Objects.requireNonNull(details);
 	}
 
 	/**
@@ -71,8 +71,8 @@ public class TestSuiteResult {
 	 *
 	 * @return the global details of the suite's execution, or {@code null} if unspecified
 	 */
-	public String getGlobalDetails() {
-		return globalDetails;
+	public String getDetails() {
+		return details;
 	}
 
 	/**
@@ -84,10 +84,10 @@ public class TestSuiteResult {
 		testResults.add(testResult);
 		/* FAILURE overrides SUCCESS, and ERROR overrides FAILURE */
 		TestStatus testResultStatus = testResult.getStatus();
-		if (testResultStatus == TestStatus.FAILURE && globalStatus == TestStatus.SUCCESS
-		    || testResultStatus == TestStatus.ERROR && globalStatus != TestStatus.ERROR) {
-			globalStatus = testResultStatus;
-			globalDetails = testResult.getDetails();
+		if (testResultStatus == TestStatus.FAILURE && status == TestStatus.SUCCESS
+		    || testResultStatus == TestStatus.ERROR && status != TestStatus.ERROR) {
+			status = testResultStatus;
+			details = testResult.getDetails();
 		}
 	}
 

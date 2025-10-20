@@ -52,7 +52,7 @@ public class TestSuiteRunner {
 			testSuite = parseTestSuiteFromPath(testSuitePath, TestSuiteUnmarshaller.INSTANCE);
 		} catch (IOException | JAXBException e) {
 			TestSuiteResult errorResult = new TestSuiteResult(testSuitePath.toString());
-			errorResult.setGlobalStatus(TestStatus.ERROR);
+			errorResult.setStatus(TestStatus.ERROR);
 			return errorResult;
 		}
 		return runTestSuite(testSuite);
@@ -76,8 +76,8 @@ public class TestSuiteRunner {
 				result.addTestResult(caseResult);
 			}
 		} catch (IOException | IllegalStateException | TransformerConfigurationException e) {
-			result.setGlobalStatus(TestStatus.ERROR);
-			result.setGlobalDetails(e.toString());
+			result.setStatus(TestStatus.ERROR);
+			result.setDetails(e.toString());
 			return result;
 		}
 		return result;
