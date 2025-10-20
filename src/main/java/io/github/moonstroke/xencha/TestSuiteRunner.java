@@ -128,8 +128,7 @@ public class TestSuiteRunner {
 		String details = null;
 		try {
 			javax.xml.transform.Source input = getSource(c.getInput());
-			Result target = new DOMResult(TestSuiteDocumentBuilder.INSTANCE.newDocument());
-			sourceStylesheet.transform(input, target);
+			Result target = transform(sourceStylesheet, input);
 			javax.xml.transform.Source expectedOutput = getSource(c.getExpectedOutput());
 			if (!areEqual(expectedOutput, target)) {
 				status = TestStatus.FAILURE;
@@ -140,6 +139,13 @@ public class TestSuiteRunner {
 			details = e.toString();
 		}
 		return new TestResult(c.getName(), status, details);
+	}
+
+	private Result transform(Transformer sourceStylesheet,
+	                         javax.xml.transform.Source input) throws TransformerException {
+		Result target = new DOMResult(TestSuiteDocumentBuilder.INSTANCE.newDocument());
+		sourceStylesheet.transform(input, target);
+		return target;
 	}
 
 	private javax.xml.transform.Source getSource(Source source) throws IOException, SAXException {
