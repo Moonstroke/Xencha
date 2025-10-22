@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+	<fo:layout-master-set>
+		<fo:simple-page-master master-name="a4" page-height="29.7cm" page-width="21cm">
+			<fo:region-body region-name="xsl-region-body" margin="25mm"/>
+			<fo:region-before region-name="xsl-region-before" extent="2cm" margin-top="5mm"/>
+		</fo:simple-page-master>
+	</fo:layout-master-set>
+	<fo:page-sequence master-reference="a4">
+		<fo:static-content flow-name="xsl-region-before">
+			<fo:block text-align="center" margin-top="5mm" font-style="italic">Test with external input</fo:block>
+		</fo:static-content>
+		<fo:flow flow-name="xsl-region-body">
+			<fo:block font-weight="bold" text-decoration="underline" font-size="24pt">This is a test case that uses external output data</fo:block>
+			<fo:block>This, incidentally, is the external output data.</fo:block>
+		</fo:flow>
+	</fo:page-sequence>
+</fo:root>
