@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<playlists>
+	<playlist>
+		<name>80's Metal</name>
+		<tracklist>
+			<track>
+				<name>Hallowed Be Thy Name</name>
+				<artist>Iron Maiden</artist>
+				<duration>7:26</duration>
+				<album>The Number of the Beast</album>
+				<releaseYear>1982</releaseYear>
+			</track>
+			<track>
+				<name>For Whom the Bell Tolls</name>
+				<artist>Metallica</artist>
+				<duration>5:11</duration>
+				<album>Ride the Lightning</album>
+				<releaseYear>1985</releaseYear>
+			</track>
+			<track>
+				<name>Electric Eye</name>
+				<artist>Judas Priest</artist>
+				<duration>3:39</duration>
+				<album>Screaming for Vengeance</album>
+				<releaseYear>1982</releaseYear>
+			</track>
+			<track>
+				<name>Marquis du mal</name>
+				<artist>ADX</artist>
+				<duration>4:51</duration>
+				<album>La terreur</album>
+				<releaseYear>1986</releaseYear>
+			</track>
+			<track>
+				<name>Waiting for an Alibi</name>
+				<artist>Thin Lizzy</artist>
+				<duration>3:31</duration>
+				<album>Black Rose: A Rock Legend</album>
+				<releaseYear>1979</releaseYear>
+			</track>
+			<track>
+				<name>Majesty</name>
+				<artist>Blind Guardian</artist>
+				<duration>7:31</duration>
+				<album>Battalions of Fear</album>
+				<releaseYear>1988</releaseYear>
+			</track>
+			<track>
+				<name>(We Are) The Road Crew</name>
+				<artist>Motörhead</artist>
+				<duration>3:12</duration>
+				<album>Ace of Spades</album>
+				<releaseYear>1980</releaseYear>
+			</track>
+			<track>
+				<name>The Mob Rules</name>
+				<artist>Black Sabbath</artist>
+				<duration>3:14</duration>
+				<album>Mob Rules</album>
+				<releaseYear>1981</releaseYear>
+			</track>
+			<track>
+				<name>Légende</name>
+				<artist>Sortilège</artist>
+				<duration>02:45</duration>
+				<album>Métamorphose</album>
+				<releaseYear>1984</releaseYear>
+			</track>
+			<track>
+				<name>The Ram</name>
+				<artist>Manilla Road</artist>
+				<duration>3:46</duration>
+				<album>Crystal Logic</album>
+				<releaseYear>1983</releaseYear>
+			</track>
+			<track>
+				<name>Call from the Grave</name>
+				<artist>Bathory</artist>
+				<duration>4:53</duration>
+				<album>Under the Sign of the Black Mark</album>
+				<releaseYear>1987</releaseYear>
+			</track>
+		</tracklist>
+	</playlist>
+</playlists>
