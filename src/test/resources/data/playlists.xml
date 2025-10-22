@@ -82,4 +82,37 @@
 			</track>
 		</tracklist>
 	</playlist>
+	<playlist>
+		<name>Piano pieces</name>
+		<tracklist>
+			<track>
+				<name>Nuvole bianche</name>
+				<artist>Ludovico Einaudi</artist>
+				<duration>5:57</duration>
+				<album>Una mattina</album>
+				<releaseYear>2004</releaseYear>
+			</track>
+			<track>
+				<name>Gnossienne II</name>
+				<artist>Erik Satie</artist>
+				<duration>2:53</duration>
+				<album>Trois Gnossiennes</album>
+				<releaseYear>1913</releaseYear>
+			</track>
+			<track>
+				<name>The Heart Asks Pleasure First</name>
+				<artist>Michael Nyman</artist>
+				<duration>3:20</duration>
+				<album>The Piano OST</album>
+				<releaseYear>1993</releaseYear>
+			</track>
+			<track>
+				<name>River Flows in You</name>
+				<artist>Yiruma</artist>
+				<duration>3:04</duration>
+				<album>First Love</album>
+				<releaseYear>2001</releaseYear>
+			</track>
+		</tracklist>
+	</playlist>
 </playlists>
