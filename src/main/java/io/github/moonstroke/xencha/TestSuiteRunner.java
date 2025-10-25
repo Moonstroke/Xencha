@@ -211,7 +211,8 @@ public class TestSuiteRunner {
 
 	private static class TestSuiteTransformerFactory {
 
-		private static final TransformerFactory INSTANCE = TransformerFactory.newInstance();
+		private static final TransformerFactory INSTANCE = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl",
+		                                                                                  null);
 	}
 
 	private static class TestSuiteDocumentBuilder {
