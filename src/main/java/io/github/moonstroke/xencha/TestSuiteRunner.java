@@ -20,6 +20,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 
@@ -130,6 +131,8 @@ public class TestSuiteRunner {
 		try {
 			Source input = getSource(rootPath, c.getInput());
 			Result target = transform(sourceStylesheet, input);
+			System.err.println("DEBUG transformation result:");
+			TestSuiteTransformerFactory.INSTANCE.newTransformer().transform(new DOMSource(toDOMResult(target).getNode()), new StreamResult(System.err));
 			Source expectedOutput = getSource(rootPath, c.getExpectedOutput());
 			if (!areEqual(expectedOutput, target)) {
 				status = TestStatus.FAILURE;
