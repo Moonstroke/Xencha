@@ -50,6 +50,12 @@
 			<version>4.0.5</version>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- Saxon for XSLT 2.0 stylesheets -->
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>12.9</version>
+		</dependency>
 	</dependencies>
 
 	<build>
