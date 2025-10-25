@@ -115,4 +115,51 @@
 			</track>
 		</tracklist>
 	</playlist>
+	<playlist>
+		<name>Workout AOR</name>
+		<tracklist>
+			<track>
+				<name>Scarface (Push It to the Limit)</name>
+				<artist>Paul Engemann</artist>
+				<duration>3:01</duration>
+				<album>Scarface: Music from the Original Motion Picture Soundtrack</album>
+				<releaseYear>1983</releaseYear>
+			</track>
+			<track>
+				<name>High on Emotion</name>
+				<artist>Chris de Burgh</artist>
+				<duration>4:26</duration>
+				<album>Man on the Line</album>
+				<releaseYear>1984</releaseYear>
+			</track>
+			<track>
+				<name>Burning Heart</name>
+				<artist>Survivor</artist>
+				<duration>3:51</duration>
+				<album>Rocky IV: Original Motion Picture Soundtrack</album>
+				<releaseYear>1985</releaseYear>
+			</track>
+			<track>
+				<name>True Survivor</name>
+				<artist>David Hasselhoff</artist>
+				<duration>3:42</duration>
+				<album>Kung Fury: Original Motion Picture Soundtrack</album>
+				<releaseYear>2015</releaseYear>
+			</track>
+			<track>
+				<name>You Keep Me Hangin' On</name>
+				<artist>Kim Wilde</artist>
+				<duration>4:10</duration>
+				<album>Another Step</album>
+				<releaseYear>1986</releaseYear>
+			</track>
+			<track>
+				<name>Empire</name>
+				<artist>Jungle Fiction</artist>
+				<duration>4:21</duration>
+				<album>Empire</album>
+				<releaseYear>2011</releaseYear>
+			</track>
+		</tracklist>
+	</playlist>
 </playlists>
