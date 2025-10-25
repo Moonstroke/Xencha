@@ -14,7 +14,7 @@
 
 	<xsl:function name="fn:seconds-to-time">
 		<xsl:param name="seconds"/>
-		<xsl:value-of select="$seconds div 60"/>
+		<xsl:value-of select="$seconds idiv 60"/>
 		<xsl:text>:</xsl:text>
 		<xsl:value-of select="$seconds mod 60"/>
 	</xsl:function>
