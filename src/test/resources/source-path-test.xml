@@ -4,16 +4,16 @@
 <test xmlns="http://moonstroke.github.io/xencha" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://moonstroke.github.io/xencha ../../main/xsd/test.xsd">
 	<name>Tests for external source</name>
 	<source>
-		<path>/source/path/for/path/test</path>
+		<path>data/extract-playlist-duration.xsl</path>
 	</source>
 	<cases>
 		<case>
 			<name>Test for external source with external input/output</name>
 			<input>
-				<path>/input/path/for/first/case</path>
+				<path>data/playlists.xml</path>
 			</input>
 			<expectedOutput>
-				<path>/expected/output/path/for/first/case</path>
+				<path>data/playlist-durations.xml</path>
 			</expectedOutput>
 		</case>
 		<case>
