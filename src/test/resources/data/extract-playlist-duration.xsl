@@ -8,19 +8,19 @@
 
 	<xsl:template match="tracklist">
 		<totalDuration>
-			<xsl:value-of select="fn:seconds-to-time(sum(track/duration/fn:time-to-seconds()))"/>
+			<xsl:value-of select="fn:seconds-to-time(sum(track/duration/fn:time-to-seconds(.)))"/>
 		</totalDuration>
 	</xsl:template>
 
 	<xsl:function name="fn:seconds-to-time">
-		<xsl:param name="seconds" select="number(text())"/>
-		<xsl:value-of select="seconds div 60"/>
+		<xsl:param name="seconds"/>
+		<xsl:value-of select="$seconds div 60"/>
 		<xsl:text>:</xsl:text>
-		<xsl:value-of select="seconds mod 60"/>
+		<xsl:value-of select="$seconds mod 60"/>
 	</xsl:function>
 
 	<xsl:function name="fn:time-to-seconds">
-		<xsl:param name="time" select="text()"/>
+		<xsl:param name="time"/>
 		<xsl:variable name="minutes" select="number(substring-before($time, ':'))"/>
 		<xsl:variable name="seconds" select="number(substring-after($time, ':'))"/>
 		<xsl:value-of select="$minutes * 60 + $seconds"/>
