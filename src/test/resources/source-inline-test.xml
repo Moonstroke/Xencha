@@ -42,13 +42,13 @@
 			
 				<xsl:template match="h1">
 					<fo:block font-weight="bold" text-decoration="underline" font-size="24pt">
-						<xsl:value-of select="text()"/>
+						<xsl:apply-templates/>
 					</fo:block>
 				</xsl:template>
 			
 				<xsl:template match="p">
 					<fo:block>
-						<xsl:value-of select="text()"/>
+						<xsl:apply-templates/>
 					</fo:block>
 				</xsl:template>
 			</xsl:stylesheet>
