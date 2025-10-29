@@ -14,9 +14,9 @@
 	<xsl:template match="html">
 		<fo:page-sequence master-name="a4">
 			<fo:static-content flow-name="xsl-region-before">
-				<xsl:apply-templates match="head/title"/>
+				<xsl:apply-templates select="head/title"/>
 			</fo:static-content>
-			<xsl:apply-templates match="body"/>
+			<xsl:apply-templates select="body"/>
 		</fo:page-sequence>
 	</xsl:template>
 
