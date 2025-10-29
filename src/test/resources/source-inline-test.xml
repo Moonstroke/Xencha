@@ -5,9 +5,45 @@
 	<name>Tests for embedded source</name>
 	<source>
 		<inline>
-			<!-- This stylesheet does whatever blah blah blah -->
-			<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-				<!-- TODO -->
+			<!-- This stylesheet transforms (a subset of) HTML into XSL-FO -->
+			<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+				<xsl:template match="/">
+					<fo:root>
+						<fo:layout-master-set>
+							<fo:simple-page-master master-name="a4" page-height="29.7cm" page-width="21cm">
+								<fo:region-body region-name="xsl-region-body" margin="25mm"/>
+							</fo:simple-page-master>
+						</fo:layout-master-set>
+						<xsl:apply-templates/>
+					</fo:root>
+				</xsl:template>
+			
+				<xsl:template match="html">
+					<fo:page-sequence master-name="a4">
+						<fo:static-content flow-name="xsl-region-before">
+							<xsl:apply-templates select="head/title"/>
+						</fo:static-content>
+						<xsl:apply-templates select="body"/>
+					</fo:page-sequence>
+				</xsl:template>
+			
+				<xsl:template match="title">
+					<fo:block text-align="center">
+						<xsl:value-of select="text()"/>
+					</fo:block>
+				</xsl:template>
+			
+				<xsl:template match="h1">
+					<fo:block font-weight="bold" text-decoration="underline" font-size="24pt">
+						<xsl:value-of select="text()"/>
+					</fo:block>
+				</xsl:template>
+			
+				<xsl:template match="p">
+					<fo:block>
+						<xsl:value-of select="text()"/>
+					</fo:block>
+				</xsl:template>
 			</xsl:stylesheet>
 		</inline>
 	</source>
@@ -15,10 +51,10 @@
 		<case>
 			<name>Test for embedded source with external input/output</name>
 			<input>
-				<path>/input/path/for/first/case</path>
+				<path>data/external-input.html</path>
 			</input>
 			<expectedOutput>
-				<path>/expected/output/path/for/first/case</path>
+				<path>data/external-output.fo</path>
 			</expectedOutput>
 		</case>
 		<case>
@@ -39,7 +75,21 @@
 			<expectedOutput>
 				<inline>
 					<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
-						<!-- TODO -->
+						<fo:layout-master-set>
+							<fo:simple-page-master master-name="a4" page-height="29.7cm" page-width="21cm">
+								<fo:region-body region-name="xsl-region-body" margin="25mm"/>
+								<fo:region-before region-name="xsl-region-before" extent="2cm" margin-top="5mm"/>
+							</fo:simple-page-master>
+						</fo:layout-master-set>
+						<fo:page-sequence master-reference="a4">
+							<fo:static-content flow-name="xsl-region-before">
+								<fo:block text-align="center" margin-top="5mm" font-style="italic">Test with external input</fo:block>
+							</fo:static-content>
+							<fo:flow flow-name="xsl-region-body">
+								<fo:block font-weight="bold" text-decoration="underline" font-size="24pt">This is a test case that uses embedded output data</fo:block>
+								<fo:block>This, incidentally, is the embedded output data.</fo:block>
+							</fo:flow>
+						</fo:page-sequence>
 					</fo:root>
 				</inline>
 			</expectedOutput>
