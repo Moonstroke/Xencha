@@ -113,6 +113,13 @@
 				<album>First Love</album>
 				<releaseYear>2001</releaseYear>
 			</track>
+			<track>
+				<name>Before My Eyes</name>
+				<artist>Sean Townsend</artist>
+				<duration>3:48</duration>
+				<album>These Darkened Days of Grace</album>
+				<releaseYear>2014</releaseYear>
+			</track>
 		</tracklist>
 	</playlist>
 	<playlist>
@@ -166,6 +173,13 @@
 				<duration>6:15</duration>
 				<album>Motion</album>
 				<releaseYear>1984</releaseYear>
+			</track>
+			<track>
+				<name>Time Crime</name>
+				<artist>Scandroid</artist>
+				<duration>5:14</duration>
+				<album>The Darkness and the Light</album>
+				<releaseYear>2019</releaseYear>
 			</track>
 		</tracklist>
 	</playlist>
