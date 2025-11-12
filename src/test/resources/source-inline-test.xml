@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- SPDX-FileCopyrightText: 2025 (c) Joachim MARIE <moonstroke+github@live.fr>
      SPDX-License-Identifier: MIT -->
-<test xmlns="http://moonstroke.github.io/xencha" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://moonstroke.github.io/xencha ../../main/xsd/test.xsd">
-	<name>Tests for embedded source</name>
-	<source>
-		<inline>
+<x:test xmlns:x="http://moonstroke.github.io/xencha" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://moonstroke.github.io/xencha ../../main/xsd/test.xsd">
+	<x:name>Tests for embedded source</x:name>
+	<x:source>
+		<x:inline>
 			<!-- This stylesheet transforms (a subset of) HTML into XSL-FO -->
 			<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
 				<xsl:template match="/">
@@ -56,22 +56,22 @@
 				<xsl:value-of select="replace(., 'input', 'output')"/>
 			</xsl:template>
 			</xsl:stylesheet>
-		</inline>
-	</source>
-	<cases>
-		<case>
-			<name>Test for embedded source with external input/output</name>
-			<input>
-				<path>data/external-input.html</path>
-			</input>
-			<expectedOutput>
-				<path>data/external-output.fo</path>
-			</expectedOutput>
-		</case>
-		<case>
-			<name>Test for embedded source with embedded input/output</name>
-			<input>
-				<inline>
+		</x:inline>
+	</x:source>
+	<x:cases>
+		<x:case>
+			<x:name>Test for embedded source with external input/output</x:name>
+			<x:input>
+				<x:path>data/external-input.html</x:path>
+			</x:input>
+			<x:expectedOutput>
+				<x:path>data/external-output.fo</x:path>
+			</x:expectedOutput>
+		</x:case>
+		<x:case>
+			<x:name>Test for embedded source with embedded input/output</x:name>
+			<x:input>
+				<x:inline>
 					<html lang="en">
 						<head>
 							<title>Test with embedded input/output</title>
@@ -81,10 +81,10 @@
 							<p>This, incidentally, is the embedded input data.</p>
 						</body>
 					</html>
-				</inline>
-			</input>
-			<expectedOutput>
-				<inline>
+				</x:inline>
+			</x:input>
+			<x:expectedOutput>
+				<x:inline>
 					<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 						<fo:layout-master-set>
 							<fo:simple-page-master master-name="a4" page-height="29.7cm" page-width="21cm">
@@ -102,8 +102,8 @@
 							</fo:flow>
 						</fo:page-sequence>
 					</fo:root>
-				</inline>
-			</expectedOutput>
-		</case>
-	</cases>
-</test>
+				</x:inline>
+			</x:expectedOutput>
+		</x:case>
+	</x:cases>
+</x:test>
