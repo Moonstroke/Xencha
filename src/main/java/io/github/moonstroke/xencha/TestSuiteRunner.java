@@ -129,11 +129,14 @@ public class TestSuiteRunner {
 		TestStatus status = TestStatus.SUCCESS;
 		String details = null;
 		try {
+			System.err.println("DEBUG running case " + c.getName());
 			Source input = getSource(rootPath, c.getInput());
 			Result target = transform(sourceStylesheet, input);
 			System.err.println("DEBUG transformation result:");
 			TestSuiteTransformerFactory.INSTANCE.newTransformer().transform(new DOMSource(toDOMResult(target).getNode()), new StreamResult(System.err));
 			Source expectedOutput = getSource(rootPath, c.getExpectedOutput());
+			System.err.println("DEBUG transformation expected result:");
+			TestSuiteTransformerFactory.INSTANCE.newTransformer().transform(toDOMSource(expectedOutput), new StreamResult(System.err));
 			if (!areEqual(expectedOutput, target)) {
 				status = TestStatus.FAILURE;
 				details = "The output of the test differs from the expected output";
@@ -223,7 +226,9 @@ public class TestSuiteRunner {
 		private static final DocumentBuilder INSTANCE;
 		static {
 			try {
-				INSTANCE = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+				documentBuilderFactory.setNamespaceAware(true);
+				INSTANCE = documentBuilderFactory.newDocumentBuilder();
 			} catch (ParserConfigurationException e) {
 				throw new ExceptionInInitializerError(e);
 			}
