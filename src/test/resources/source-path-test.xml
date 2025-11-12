@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- SPDX-FileCopyrightText: 2025 (c) Joachim MARIE <moonstroke+github@live.fr>
      SPDX-License-Identifier: MIT -->
-<test xmlns="http://moonstroke.github.io/xencha" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://moonstroke.github.io/xencha ../../main/xsd/test.xsd">
-	<name>Tests for external source</name>
-	<source>
-		<path>data/extract-playlist-duration.xsl</path>
-	</source>
-	<cases>
-		<case>
-			<name>Test for external source with external input/output</name>
-			<input>
-				<path>data/playlists.xml</path>
-			</input>
-			<expectedOutput>
-				<path>data/playlist-durations.xml</path>
-			</expectedOutput>
-		</case>
-		<case>
-			<name>Test for external source with embedded input/output</name>
-			<input>
-				<inline>
+<x:test xmlns:x="http://moonstroke.github.io/xencha" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://moonstroke.github.io/xencha ../../main/xsd/test.xsd">
+	<x:name>Tests for external source</x:name>
+	<x:source>
+		<x:path>data/extract-playlist-duration.xsl</x:path>
+	</x:source>
+	<x:cases>
+		<x:case>
+			<x:name>Test for external source with external input/output</x:name>
+			<x:input>
+				<x:path>data/playlists.xml</x:path>
+			</x:input>
+			<x:expectedOutput>
+				<x:path>data/playlist-durations.xml</x:path>
+			</x:expectedOutput>
+		</x:case>
+		<x:case>
+			<x:name>Test for external source with embedded input/output</x:name>
+			<x:input>
+				<x:inline>
 					<!-- TODO -->
-				</inline>
-			</input>
-			<expectedOutput>
-				<inline>
+				</x:inline>
+			</x:input>
+			<x:expectedOutput>
+				<x:inline>
 					<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 						<!-- TODO -->
 					</fo:root>
-				</inline>
-			</expectedOutput>
-		</case>
-	</cases>
-</test>
+				</x:inline>
+			</x:expectedOutput>
+		</x:case>
+	</x:cases>
+</x:test>
