@@ -8,10 +8,10 @@
 	</fo:layout-master-set>
 	<fo:page-sequence master-reference="a4">
 		<fo:static-content flow-name="xsl-region-before">
-			<fo:block text-align="center" margin-top="5mm" font-style="italic">Test with external input</fo:block>
+			<fo:block text-align="center" margin-top="5mm" font-style="italic">Test with external input/output</fo:block>
 		</fo:static-content>
 		<fo:flow flow-name="xsl-region-body">
-			<fo:block font-weight="bold" text-decoration="underline" font-size="24pt">This is a test case that uses external output data</fo:block>
+			<fo:block font-weight="bold" text-decoration="underline" font-size="24pt">This is a test case that uses external input and output data</fo:block>
 			<fo:block>This, incidentally, is the external output data.</fo:block>
 		</fo:flow>
 	</fo:page-sequence>
