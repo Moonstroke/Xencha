@@ -20,14 +20,72 @@
 			<x:name>Test for external source with embedded input/output</x:name>
 			<x:input>
 				<x:inline>
-					<!-- TODO -->
+					<playlists>
+						<playlist>
+							<name>Whimsical pop</name>
+							<tracklist>
+								<track>
+									<name>Tombé du ciel</name>
+									<artist>Jacques Higelin</artist>
+									<duration>4:47</duration>
+									<album>Tombé du ciel</album>
+									<releaseYear>1988</releaseYear>
+								</track>
+								<track>
+									<name>She Kicks Ass</name>
+									<artist>Puggy</artist>
+									<duration>3:22</duration>
+									<album>Something You Might Like</album>
+									<releaseYear>2009</releaseYear>
+								</track>
+								<track>
+									<name>You Might Think</name>
+									<artist>The Cars</artist>
+									<duration>3:04</duration>
+									<album>Heartbeat City</album>
+									<releaseYear>1984</releaseYear>
+								</track>
+								<track>
+									<name>La Boîte de jazz</name>
+									<artist>Michel Jonasz</artist>
+									<duration>3:02</duration>
+									<album>Uni vers l'uni</album>
+									<releaseYear>1985</releaseYear>
+								</track>
+								<track>
+									<name>Sarà perché ti amo</name>
+									<artist>Ricchi e Poveri</artist>
+									<duration>3:04</duration>
+									<album>...E penso a te</album>
+									<releaseYear>1981</releaseYear>
+								</track>
+								<track>
+									<name>Love Is All</name>
+									<artist>Roger Glover</artist>
+									<duration>3:14</duration>
+									<album>The Butterfly Ball and the Grasshopper's Feast</album>
+									<releaseYear>1974</releaseYear>
+								</track>
+								<track>
+									<name>Valentine</name>
+									<artist>Maurice Chevalier</artist>
+									<duration>3:16</duration>
+									<album>Valentine</album>
+									<releaseYear>1925</releaseYear>
+								</track>
+							</tracklist>
+						</playlist>
+					</playlists>
 				</x:inline>
 			</x:input>
 			<x:expectedOutput>
 				<x:inline>
-					<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
-						<!-- TODO -->
-					</fo:root>
+					<playlists>
+						<playlist>
+							<name>Whimsical pop</name>
+							<totalDuration>23:49</totalDuration>
+						</playlist>
+					</playlists>
 				</x:inline>
 			</x:expectedOutput>
 		</x:case>
