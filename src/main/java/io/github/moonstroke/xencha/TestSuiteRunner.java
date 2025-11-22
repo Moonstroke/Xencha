@@ -40,6 +40,8 @@ import jakarta.xml.bind.Unmarshaller;
  */
 public class TestSuiteRunner {
 
+	private final OutputComparator outputComparator = new OutputComparator();
+
 	/**
 	 * Run the test suite described inthe file of given path.
 	 *
@@ -133,11 +135,11 @@ public class TestSuiteRunner {
 			Source input = getSource(rootPath, c.getInput());
 			Result target = transform(sourceStylesheet, input);
 			System.err.println("DEBUG transformation result:");
-			TestSuiteTransformerFactory.INSTANCE.newTransformer().transform(new DOMSource(toDOMResult(target).getNode()), new StreamResult(System.err));
+			TestSuiteTransformerFactory.INSTANCE.newTransformer().transform(new DOMSource(((DOMResult) target).getNode()), new StreamResult(System.err));
 			Source expectedOutput = getSource(rootPath, c.getExpectedOutput());
 			System.err.println("DEBUG transformation expected result:");
 			TestSuiteTransformerFactory.INSTANCE.newTransformer().transform(expectedOutput, new StreamResult(System.err));
-			if (!areEqual(expectedOutput, target)) {
+			if (!outputComparator.areEqual(expectedOutput, target)) {
 				status = TestStatus.FAILURE;
 				details = "The output of the test differs from the expected output";
 			}
@@ -176,26 +178,6 @@ public class TestSuiteRunner {
 			return new DOMSource(((Element) root).getOwnerDocument());
 		}
 		return new DOMSource(TestSuiteDocumentBuilder.INSTANCE.parse(rootPath.resolve(source.getPath()).toString()));
-	}
-
-	private boolean areEqual(Source expectedOutput, Result obtainedOutput) {
-		return toDOMSource(expectedOutput).getNode().isEqualNode(toDOMResult(obtainedOutput).getNode());
-	}
-
-	private static DOMSource toDOMSource(Source source) {
-		if (source instanceof DOMSource) {
-			return (DOMSource) source;
-		}
-		// TODO handle other subtypes
-		throw new UnsupportedOperationException("Source type not handled: " + source.getClass());
-	}
-
-	private static DOMResult toDOMResult(Result result) {
-		if (result instanceof DOMResult) {
-			return (DOMResult) result;
-		}
-		// TODO handle other subtypes
-		throw new UnsupportedOperationException("Result type not handled: " + result.getClass());
 	}
 
 
