@@ -22,9 +22,8 @@ public class OutputComparator {
 	/**
 	 * Construct a new output comparator.
 	 *
-	 * @param ignoreWhitespaceNodes     A boolean flag indicating whether to skip whitespace-only text nodes
-	 * @param ignoreDifferingNsPrefixes A boolean flag indicating whether to ignore differences in prefixes for a same
-	 *                                  namespace
+	 * @param ignoreWhitespaceNodes     Whether to skip whitespace-only text nodes
+	 * @param ignoreDifferingNsPrefixes Whether to ignore differences in prefixes for a same namespace
 	 */
 	public OutputComparator(boolean ignoreWhitespaceNodes, boolean ignoreDifferingNsPrefixes) {
 		this.ignoreWhitespaceNodes = ignoreWhitespaceNodes;
