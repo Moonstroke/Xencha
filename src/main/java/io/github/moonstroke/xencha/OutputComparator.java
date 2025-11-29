@@ -37,19 +37,7 @@ public class OutputComparator {
 	public boolean areEqual(Source expectedOutput, Result obtainedOutput) {
 		Node expectedNode = toDOMSource(expectedOutput).getNode();
 		Node obtainedNode = toDOMResult(obtainedOutput).getNode();
-		Node child1 = expectedNode.getFirstChild();
-		Node child2 = obtainedNode.getFirstChild();
-		while (child1 != null && child2 != null) {
-			if (!child1.isEqualNode(child2)) {
-				return false;
-			}
-			child1 = child1.getNextSibling();
-			child2 = child2.getNextSibling();
-		}
-		if (child1 != child2) {
-			return false;
-		}
-		return true;
+		return areEqual(expectedNode, obtainedNode);
 	}
 
 	private static DOMSource toDOMSource(Source source) {
@@ -66,5 +54,18 @@ public class OutputComparator {
 		}
 		// TODO handle other subtypes
 		throw new UnsupportedOperationException("Result type not handled: " + result.getClass());
+	}
+
+	private boolean areEqual(Node node1, Node node2) {
+		Node child1 = node1.getFirstChild();
+		Node child2 = node2.getFirstChild();
+		while (child1 != null && child2 != null) {
+			if (!areEqual(child1, child2)) {
+				return false;
+			}
+			child1 = child1.getNextSibling();
+			child2 = child2.getNextSibling();
+		}
+		return child1 == child2; /* Implicit "both null" / "both non-null" check */
 	}
 }
