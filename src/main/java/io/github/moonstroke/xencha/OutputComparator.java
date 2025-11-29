@@ -106,6 +106,6 @@ public class OutputComparator {
 	}
 
 	private static boolean areEqual(String str1, String str2) {
-		return str1 == str2 || str1.equals(str2);
+		return str1 == str2 || str1 != null && str1.equals(str2);
 	}
 }
