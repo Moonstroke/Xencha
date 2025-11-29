@@ -65,11 +65,11 @@ public class OutputComparator {
 			return true;
 		}
 		if (node1.getNodeType() != node2.getNodeType()
-		    || node1.getNodeName() != node2.getNodeName() && !node1.getNodeName().equals(node2.getNodeName())
-		    || node1.getLocalName() != node2.getLocalName() && !node1.getLocalName().equals(node2.getLocalName())
-		    || node1.getNamespaceURI() != node2.getNamespaceURI() && !node1.getNamespaceURI().equals(node2.getNamespaceURI())
-		    || node1.getPrefix() != node2.getPrefix() && !node1.getPrefix().equals(node2.getPrefix())
-		    || node1.getNodeValue() != node2.getNodeValue() && !node1.getNodeValue().equals(node2.getNodeValue())) {
+		    || !areEqual(node1.getNodeName(), node2.getNodeName())
+		    || !areEqual(node1.getLocalName(), node2.getLocalName())
+		    || !areEqual(node1.getNamespaceURI(), node2.getNamespaceURI())
+		    || !areEqual(node1.getPrefix(), node2.getPrefix())
+		    || !areEqual(node1.getNodeValue(), node2.getNodeValue())) {
 			return false;
 		}
 		if (node1.hasAttributes()) {
@@ -85,10 +85,10 @@ public class OutputComparator {
 			for (int i = 0; i < attrsLength; ++i) {
 				Node ithAttr1 = attrs1.item(i);
 				Node ithAttr2 = attrs2.item(i);
-				if (ithAttr1.getLocalName() != ithAttr2.getLocalName() && !ithAttr1.getLocalName().equals(ithAttr2.getLocalName())
-				    || ithAttr1.getNamespaceURI() != ithAttr2.getNamespaceURI() && !ithAttr1.getNamespaceURI().equals(ithAttr2.getNamespaceURI())
-				    || ithAttr1.getPrefix() != ithAttr2.getPrefix() && !ithAttr1.getPrefix().equals(ithAttr2.getPrefix())
-				    || ithAttr1.getNodeValue() != ithAttr2.getNodeValue() && !ithAttr1.getNodeValue().equals(ithAttr2.getNodeValue())) {
+				if (!areEqual(ithAttr1.getLocalName(), ithAttr2.getLocalName())
+				    || !areEqual(ithAttr1.getNamespaceURI(), ithAttr2.getNamespaceURI())
+				    || !areEqual(ithAttr1.getPrefix(), ithAttr2.getPrefix())
+				    || !areEqual(ithAttr1.getNodeValue(), ithAttr2.getNodeValue())) {
 					return false;
 				}
 			}
@@ -103,5 +103,9 @@ public class OutputComparator {
 			child2 = child2.getNextSibling();
 		}
 		return child1 == child2; /* Implicit "both null" / "both non-null" check */
+	}
+
+	private static boolean areEqual(String str1, String str2) {
+		return str1 == str2 || str1.equals(str2);
 	}
 }
