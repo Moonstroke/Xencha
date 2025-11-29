@@ -16,15 +16,19 @@ import org.w3c.dom.Node;
 public class OutputComparator {
 
 	private final boolean ignoreWhitespaceNodes;
+	private final boolean ignoreDifferingNsPrefixes;
 
 
 	/**
 	 * Construct a new output comparator.
 	 *
-	 * @param ignoreWhitespaceNodes A boolean flag indicating whether to skip whitespace-only text nodes
+	 * @param ignoreWhitespaceNodes     A boolean flag indicating whether to skip whitespace-only text nodes
+	 * @param ignoreDifferingNsPrefixes A boolean flag indicating whether to ignore differences in prefixes for a same
+	 *                                  namespace
 	 */
-	public OutputComparator(boolean ignoreWhitespaceNodes) {
+	public OutputComparator(boolean ignoreWhitespaceNodes, boolean ignoreDifferingNsPrefixes) {
 		this.ignoreWhitespaceNodes = ignoreWhitespaceNodes;
+		this.ignoreDifferingNsPrefixes = ignoreDifferingNsPrefixes;
 	}
 
 	/**

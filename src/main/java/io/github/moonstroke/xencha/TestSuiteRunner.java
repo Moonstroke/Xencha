@@ -40,7 +40,8 @@ import jakarta.xml.bind.Unmarshaller;
  */
 public class TestSuiteRunner {
 
-	private final OutputComparator outputComparator = new OutputComparator(/* ignoreWhitespaceNodes: */ false);
+	private final OutputComparator outputComparator = new OutputComparator(/* ignoreWhitespaceNodes: */ false,
+	                                                                       /* ignoreDifferingNsPrefixes: */ false);
 
 	/**
 	 * Run the test suite described inthe file of given path.
