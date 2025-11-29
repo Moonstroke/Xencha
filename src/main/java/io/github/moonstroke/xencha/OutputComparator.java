@@ -12,6 +12,13 @@ import javax.xml.transform.dom.DOMSource;
  */
 public class OutputComparator {
 
+	private final boolean ignoreWhitespaceNodes;
+
+
+	public OutputComparator(boolean ignoreWhitespaceNodes) {
+		this.ignoreWhitespaceNodes = ignoreWhitespaceNodes;
+	}
+
 	public boolean areEqual(Source expectedOutput, Result obtainedOutput) {
 		return toDOMSource(expectedOutput).getNode().isEqualNode(toDOMResult(obtainedOutput).getNode());
 	}
