@@ -82,7 +82,10 @@ public class OutputComparator {
 			for (int i = 0; i < attrsLength; ++i) {
 				Node ithAttr1 = attrs1.item(i);
 				Node ithAttr2 = attrs2.item(i);
-				if (!areEqual(ithAttr1, ithAttr2)) {
+				if (ithAttr1.getLocalName() != ithAttr2.getLocalName() && !ithAttr1.getLocalName().equals(ithAttr2.getLocalName())
+				    || ithAttr1.getNamespaceURI() != ithAttr2.getNamespaceURI() && !ithAttr1.getNamespaceURI().equals(ithAttr2.getNamespaceURI())
+				    || ithAttr1.getPrefix() != ithAttr2.getPrefix() && !ithAttr1.getPrefix().equals(ithAttr2.getPrefix())
+				    || ithAttr1.getNodeValue() != ithAttr2.getNodeValue() && !ithAttr1.getNodeValue().equals(ithAttr2.getNodeValue())) {
 					return false;
 				}
 			}
