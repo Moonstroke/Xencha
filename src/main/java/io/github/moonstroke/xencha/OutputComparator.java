@@ -17,10 +17,23 @@ public class OutputComparator {
 	private final boolean ignoreWhitespaceNodes;
 
 
+	/**
+	 * Construct a new output comparator.
+	 *
+	 * @param ignoreWhitespaceNodes A boolean flag indicating whether to skip whitespace-only text nodes
+	 */
 	public OutputComparator(boolean ignoreWhitespaceNodes) {
 		this.ignoreWhitespaceNodes = ignoreWhitespaceNodes;
 	}
 
+	/**
+	 * Compare the output trees stored in the given objects for equality.
+	 *
+	 * @param expectedOutput The first tree
+	 * @param obtainedOutput The second tree
+	 *
+	 * @return {@code true} if, and only if, the two trees are recursively equal
+	 */
 	public boolean areEqual(Source expectedOutput, Result obtainedOutput) {
 		Node expectedNode = toDOMSource(expectedOutput).getNode();
 		Node obtainedNode = toDOMResult(obtainedOutput).getNode();
