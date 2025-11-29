@@ -7,6 +7,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -41,7 +42,10 @@ public class OutputComparator {
 	public boolean areEqual(Source expectedOutput, Result obtainedOutput) {
 		Node expectedNode = toDOMSource(expectedOutput).getNode();
 		Node obtainedNode = toDOMResult(obtainedOutput).getNode();
-		return areEqual(expectedNode, obtainedNode);
+		if (!(expectedNode instanceof Document && obtainedNode instanceof Document)) {
+			throw new IllegalArgumentException("DOM documents expected");
+		}
+		return areEqual(((Document) expectedNode).getDocumentElement(), ((Document) obtainedNode).getDocumentElement());
 	}
 
 	private static DOMSource toDOMSource(Source source) {
