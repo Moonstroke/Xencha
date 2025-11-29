@@ -72,7 +72,7 @@ public class OutputComparator {
 		    || !areEqual(node1.getNodeName(), node2.getNodeName())
 		    || !areEqual(node1.getLocalName(), node2.getLocalName())
 		    || !areEqual(node1.getNamespaceURI(), node2.getNamespaceURI())
-		    || !areEqual(node1.getPrefix(), node2.getPrefix())
+		    || !ignoreDifferingNsPrefixes && !areEqual(node1.getPrefix(), node2.getPrefix())
 		    || !areEqual(node1.getNodeValue(), node2.getNodeValue())) {
 			return false;
 		}
@@ -91,7 +91,7 @@ public class OutputComparator {
 				Node ithAttr2 = attrs2.item(i);
 				if (!areEqual(ithAttr1.getLocalName(), ithAttr2.getLocalName())
 				    || !areEqual(ithAttr1.getNamespaceURI(), ithAttr2.getNamespaceURI())
-				    || !areEqual(ithAttr1.getPrefix(), ithAttr2.getPrefix())
+				    || !ignoreDifferingNsPrefixes && !areEqual(ithAttr1.getPrefix(), ithAttr2.getPrefix())
 				    || !areEqual(ithAttr1.getNodeValue(), ithAttr2.getNodeValue())) {
 					return false;
 				}
