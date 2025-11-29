@@ -7,6 +7,8 @@ import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 
+import org.w3c.dom.Node;
+
 /**
  * This class encapsulates the operation of comparing two output trees for equality.
  */
@@ -20,7 +22,21 @@ public class OutputComparator {
 	}
 
 	public boolean areEqual(Source expectedOutput, Result obtainedOutput) {
-		return toDOMSource(expectedOutput).getNode().isEqualNode(toDOMResult(obtainedOutput).getNode());
+		Node expectedNode = toDOMSource(expectedOutput).getNode();
+		Node obtainedNode = toDOMResult(obtainedOutput).getNode();
+		Node child1 = expectedNode.getFirstChild();
+		Node child2 = obtainedNode.getFirstChild();
+		while (child1 != null && child2 != null) {
+			if (!child1.isEqualNode(child2)) {
+				return false;
+			}
+			child1 = child1.getNextSibling();
+			child2 = child2.getNextSibling();
+		}
+		if (child1 != child2) {
+			return false;
+		}
+		return true;
 	}
 
 	private static DOMSource toDOMSource(Source source) {
