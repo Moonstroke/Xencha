@@ -7,6 +7,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 /**
@@ -67,6 +68,24 @@ public class OutputComparator {
 		    || node1.getPrefix() != node2.getPrefix() && !node1.getPrefix().equals(node2.getPrefix())
 		    || node1.getNodeValue() != node2.getNodeValue() && !node1.getNodeValue().equals(node2.getNodeValue())) {
 			return false;
+		}
+		if (node1.hasAttributes()) {
+			if (!node2.hasAttributes()) {
+				return false;
+			}
+			NamedNodeMap attrs1 = node1.getAttributes();
+			NamedNodeMap attrs2 = node2.getAttributes();
+			int attrsLength = attrs1.getLength();
+			if (attrs2.getLength() != attrsLength) {
+				return false;
+			}
+			for (int i = 0; i < attrsLength; ++i) {
+				Node ithAttr1 = attrs1.item(i);
+				Node ithAttr2 = attrs2.item(i);
+				if (!areEqual(ithAttr1, ithAttr2)) {
+					return false;
+				}
+			}
 		}
 		Node child1 = node1.getFirstChild();
 		Node child2 = node2.getFirstChild();
