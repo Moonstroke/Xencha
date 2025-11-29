@@ -57,6 +57,17 @@ public class OutputComparator {
 	}
 
 	private boolean areEqual(Node node1, Node node2) {
+		if (node1 == node2) {
+			return true;
+		}
+		if (node1.getNodeType() != node2.getNodeType()
+		    || node1.getNodeName() != node2.getNodeName() && !node1.getNodeName().equals(node2.getNodeName())
+		    || node1.getLocalName() != node2.getLocalName() && !node1.getLocalName().equals(node2.getLocalName())
+		    || node1.getNamespaceURI() != node2.getNamespaceURI() && !node1.getNamespaceURI().equals(node2.getNamespaceURI())
+		    || node1.getPrefix() != node2.getPrefix() && !node1.getPrefix().equals(node2.getPrefix())
+		    || node1.getNodeValue() != node2.getNodeValue() && !node1.getNodeValue().equals(node2.getNodeValue())) {
+			return false;
+		}
 		Node child1 = node1.getFirstChild();
 		Node child2 = node2.getFirstChild();
 		while (child1 != null && child2 != null) {
